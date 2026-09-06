@@ -184,14 +184,17 @@ function fylloJsonp(){
   });
 }
 async function fylloGet(){
+  let sfA='', sfB='';
   try{
     const r=await fetch(DIEF+'?energeia=ola&t='+Date.now());
     if(!r.ok) throw new Error('απάντηση '+r.status);
-    return await r.json();
-  }catch(err){
-    teleftaioSfalma=String(err&&err.message||err);
-    return await fylloJsonp();
-  }
+    const k=await r.text();
+    return JSON.parse(k);
+  }catch(err){ sfA=String(err&&err.message||err); }
+  try{ return await fylloJsonp(); }
+  catch(err){ sfB=String(err&&err.message||err); }
+  teleftaioSfalma='1ος τρόπος: '+sfA+' · 2ος τρόπος: '+sfB;
+  throw new Error(teleftaioSfalma);
 }
 async function fylloPost(antikeimeno){
   try{
@@ -1214,6 +1217,7 @@ function kartaEkdilosis(){
         :katastasiSyndesis==='topika'?('🟡 Δεν βρήκα διεύθυνση σεναρίου μέσα στο αρχείο. '+(DIEF?('Βρήκα αυτό, που δεν μοιάζει σωστό: '+esc(DIEF.slice(0,60))):'Η γραμμή είναι κενή — μάλλον ανέβηκε το αρχείο χωρίς την αλλαγή.'))
         :'🔴 Η διεύθυνση υπάρχει αλλά το φύλλο δεν απαντά.'+(teleftaioSfalma?' Λεπτομέρεια: '+esc(teleftaioSfalma):'')}
       <button class="btn ghost mini" id="dokimiSyndesis" style="width:100%;margin-top:10px">🔄 Δοκίμασε ξανά τη σύνδεση</button>
+      <button class="btn ghost mini" id="anoixeOmo" style="width:100%;margin-top:8px">🔎 Άνοιξε τη διεύθυνση σε νέα καρτέλα</button>
       ${DIEF?`<div style="font-size:12px;margin-top:6px;word-break:break-all;opacity:.8">Διεύθυνση στο αρχείο: ${esc(DIEF)}</div>`:''}</div>
     <h3>Στείλε την πρόσκληση</h3>
     <p><small>Ο ίδιος σύνδεσμος ανοίγει σε κάθε κινητό, χωρίς εγκατάσταση.</small></p>
@@ -1742,6 +1746,7 @@ function syndese(){
       zografise();
     }
   });
+  b('anoixeOmo',()=>{ window.open(DIEF+'?energeia=ola','_blank'); });
   b('dokimiSyndesis',async()=>{
     katastasiSyndesis='syndeetai'; minimaEkd='Δοκιμάζω…'; zografise();
     try{
