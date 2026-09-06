@@ -162,12 +162,17 @@ th{color:var(--muted);font-weight:400;font-size:13px}
 /* ================= Ρύθμιση ================= */
 /*  ΒΑΛΕ ΕΔΩ τη διεύθυνση του σεναρίου Google (τελειώνει σε /exec).
     Όσο μένει κενή, η εφαρμογή δουλεύει μόνο τοπικά, στη συσκευή σου.  */
+/*  ΔΕΥΤΕΡΗ ΔΙΕΥΘΥΝΣΗ: το φύλλο δημοσιευμένο στον ιστό, για το διάβασμα.
+    Φύλλο → Αρχείο → Κοινή χρήση → Δημοσίευση στον ιστό → Ολόκληρο το έγγραφο → .csv  */
+const DIEFTHINSI_CSV = '';
+
 const DIEFTHINSI_FYLLOU = 'https://script.google.com/macros/s/AKfycbylAn8SPuzhYceJGKPa88P7T51yXFJ1ZeE7wof4lpHqoT33jrXASEuOVj8atQU7178Nuw/exec';
 
 /* ================= Αποθήκευση ================= */
 const KEY_ALL='ekdilosi_koini_v2', KEY_ME='ekdilosi_dikos_mou_v2';
 const DIEF = String(DIEFTHINSI_FYLLOU||'').trim().replace(/^['"]|['"]$/g,'');
 const meFyllo = /^https?:\/\//i.test(DIEF) && /script\.google\.com|\/exec/i.test(DIEF);
+const meCsv = /^https?:\/\//i.test(String(DIEFTHINSI_CSV||'').trim());
 let katastasiSyndesis = meFyllo?'syndeetai':'topika';
 
 let teleftaioSfalma='';
@@ -183,8 +188,45 @@ function fylloJsonp(){
     document.body.appendChild(et);
   });
 }
+function analyseCsv(keimeno){
+  const grammes=[]; let pedio='', grammi=[], mesa=false;
+  for(let i=0;i<keimeno.length;i++){
+    const c=keimeno[i];
+    if(mesa){
+      if(c==='"'){ if(keimeno[i+1]==='"'){ pedio+='"'; i++; } else mesa=false; }
+      else pedio+=c;
+    } else if(c==='"') mesa=true;
+    else if(c===','){ grammi.push(pedio); pedio=''; }
+    else if(c==='\n'){ grammi.push(pedio); grammes.push(grammi); grammi=[]; pedio=''; }
+    else if(c!=='\r') pedio+=c;
+  }
+  if(pedio||grammi.length){ grammi.push(pedio); grammes.push(grammi); }
+  return grammes;
+}
+async function fylloCsv(){
+  const vasi=String(DIEFTHINSI_CSV||'').trim();
+  if(!vasi) throw new Error('δεν έχει οριστεί δημοσιευμένο φύλλο');
+  const r=await fetch(vasi+(vasi.includes('?')?'&':'?')+'t='+Date.now());
+  if(!r.ok) throw new Error('απάντηση '+r.status);
+  const grammes=analyseCsv(await r.text());
+  if(!grammes.length) return {apantiseis:[]};
+  const kef=grammes[0].map(x=>String(x).trim());
+  const apantiseis=grammes.slice(1).filter(g=>g[0]).map(g=>{
+    const a={};
+    kef.forEach((k,i)=>{ a[k]=g[i]!==undefined?g[i]:''; });
+    ['enilikes','paidia','vrefi','theseis','pote'].forEach(k=>{ a[k]=Number(a[k])||0; });
+    ['onomata','pota','fagita','diatrofi','ferno'].forEach(k=>{
+      try{ a[k]=a[k]?JSON.parse(a[k]):[]; }catch(err){ a[k]=[]; }
+    });
+    return a;
+  });
+  return {apantiseis};
+}
 async function fylloGet(){
-  let sfA='', sfB='';
+  let sfA='', sfB='', sfC='';
+  if(String(DIEFTHINSI_CSV||'').trim()){
+    try{ return await fylloCsv(); }catch(err){ sfC=String(err&&err.message||err); }
+  }
   try{
     const r=await fetch(DIEF+'?energeia=ola&t='+Date.now());
     if(!r.ok) throw new Error('απάντηση '+r.status);
@@ -193,7 +235,7 @@ async function fylloGet(){
   }catch(err){ sfA=String(err&&err.message||err); }
   try{ return await fylloJsonp(); }
   catch(err){ sfB=String(err&&err.message||err); }
-  teleftaioSfalma='1ος τρόπος: '+sfA+' · 2ος τρόπος: '+sfB;
+  teleftaioSfalma='1ος: '+sfA+' · 2ος: '+sfB+(sfC?' · δημοσιευμένο φύλλο: '+sfC:'');
   throw new Error(teleftaioSfalma);
 }
 async function fylloPost(antikeimeno){
@@ -1213,7 +1255,7 @@ function kartaEkdilosis(){
   const e=DB.ekdilosi;
   return `<div class="card">
     <div class="note" style="margin-top:0;border-left:4px solid ${katastasiSyndesis==='syndedemeno'?'var(--green)':katastasiSyndesis==='topika'?'var(--gold)':'var(--red)'};padding-left:12px">
-      ${katastasiSyndesis==='syndedemeno'?'🟢 Συνδεδεμένο με το φύλλο σου — οι απαντήσεις μαζεύονται εκεί.'
+      ${katastasiSyndesis==='syndedemeno'?('🟢 Συνδεδεμένο με το φύλλο σου — οι απαντήσεις μαζεύονται εκεί.'+(meCsv?'':' Το διάβασμα γίνεται απευθείας από το σενάριο.'))
         :katastasiSyndesis==='topika'?('🟡 Δεν βρήκα διεύθυνση σεναρίου μέσα στο αρχείο. '+(DIEF?('Βρήκα αυτό, που δεν μοιάζει σωστό: '+esc(DIEF.slice(0,60))):'Η γραμμή είναι κενή — μάλλον ανέβηκε το αρχείο χωρίς την αλλαγή.'))
         :'🔴 Η διεύθυνση υπάρχει αλλά το φύλλο δεν απαντά.'+(teleftaioSfalma?' Λεπτομέρεια: '+esc(teleftaioSfalma):'')}
       <button class="btn ghost mini" id="dokimiSyndesis" style="width:100%;margin-top:10px">🔄 Δοκίμασε ξανά τη σύνδεση</button>
