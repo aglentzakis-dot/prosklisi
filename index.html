@@ -1,0 +1,2103 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Πρόσκληση & Οργάνωση Εκδήλωσης</title>
+<style>
+:root{
+  --bg:#EEF2F1;
+  --paper:#FFFFFF;
+  --ink:#12312E;
+  --muted:#5C7370;
+  --line:#D3E0DC;
+  --deep:#0E4F49;
+  --deep2:#136B60;
+  --gold:#B57614;
+  --green:#2C7A4B;
+  --red:#B02A25;
+  --blue:#1E5F8C;
+  --soft:#F3F8F6;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+  font-size:16px;line-height:1.55;-webkit-text-size-adjust:100%;
+}
+.wrap{max-width:680px;margin:0 auto;padding:18px 16px 80px}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:400;margin:0}
+h1{font-size:29px;line-height:1.22}
+h2{font-size:21px;margin-bottom:8px}
+h3{font-size:17px;margin-bottom:6px}
+p{margin:.5em 0}
+small{color:var(--muted)}
+hr{border:0;border-top:1px solid var(--line);margin:20px 0}
+
+.invite{background:linear-gradient(165deg,var(--deep) 0%,var(--deep2) 100%);color:#F4FBF9;border-radius:20px;padding:24px 20px;position:relative}
+.invite:after{content:"";position:absolute;pointer-events:none;border-radius:14px}
+.pl-xriso:after{inset:9px;border:3px solid rgba(255,206,110,.9)}
+.pl-diakek:after{inset:10px;border:2px dashed rgba(255,255,255,.85)}
+.pl-diplo:after{inset:9px;border:1px solid rgba(255,255,255,.9);box-shadow:0 0 0 4px rgba(255,255,255,.32)}
+.pl-korniza:after{inset:11px;border:4px double rgba(255,235,185,.95)}
+.pl-fotini{box-shadow:0 0 0 3px rgba(255,206,110,.55),0 0 26px rgba(255,206,110,.4)}
+.invite h1{color:#fff}
+.invite .eyebrow{color:#9FD9C9;font-size:13px;letter-spacing:1.6px;margin-bottom:8px}
+.when{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin-top:12px}
+.when .big{font-family:Georgia,serif;font-size:31px;color:#FFD98A;line-height:1.1}
+.place{color:#C7E4DD;margin-top:6px;font-size:15px}
+.msg{margin-top:13px;font-family:Georgia,serif;font-style:italic;color:#EAF6F2}
+.deadline{margin-top:16px;padding:13px 15px;border-radius:13px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.28)}
+.dl-big{display:block;font-size:20px;font-weight:700;color:#FFD98A;line-height:1.25}
+.dl-sub{display:block;font-size:13px;color:#DCEFE9;margin-top:3px}
+.mapbox{margin-top:14px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.3);height:175px;background:#DCE7E3}
+.mapbox iframe{width:100%;height:100%;border:0;display:block}
+.dief{margin-top:12px;font-size:15px;line-height:1.4}
+.xartis{display:block;text-align:center;margin-top:10px;padding:12px 15px;border-radius:12px;background:#fff;color:var(--deep);text-decoration:none;font-size:15px;font-weight:600}
+
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:14px}
+label{display:block;font-size:14px;color:var(--muted);margin:14px 0 6px}
+input[type=text],input[type=number],input[type=date],input[type=time],textarea,select{
+  width:100%;background:var(--paper);border:1px solid var(--line);color:var(--ink);
+  border-radius:11px;padding:12px 13px;font-size:16px;font-family:inherit}
+textarea{min-height:70px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--deep2);outline-offset:1px}
+
+.choices{display:flex;gap:8px}
+.choice{flex:1;text-align:center;padding:12px 6px;border-radius:13px;cursor:pointer;
+  border:1px solid var(--line);background:var(--soft);font-size:14px;user-select:none}
+.choice .ic{display:block;font-size:21px;margin-bottom:3px}
+.choice{box-shadow:0 1px 3px rgba(18,49,46,.13)}
+.choice[aria-pressed=true]{border-color:var(--deep);background:var(--deep);color:#fff;box-shadow:0 4px 12px rgba(14,79,73,.4)}
+
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;margin-bottom:6px}
+.chip{border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:11px 16px;font-size:15px;cursor:pointer;color:var(--ink)}
+.chip{box-shadow:0 1px 3px rgba(18,49,46,.13)}
+.chip[aria-pressed=true]{border-color:#1F5C36;background:var(--green);color:#fff;font-weight:700;box-shadow:0 4px 12px rgba(44,122,75,.42)}
+.chip:active,.opt:active,button:active{transform:translateY(1px)}
+.optlist{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.opt{width:100%;text-align:left;border:1.5px solid var(--line);background:var(--paper);border-radius:13px;padding:13px 15px;
+  font-size:15px;font-family:inherit;color:var(--ink);cursor:pointer;box-shadow:0 1px 3px rgba(18,49,46,.13)}
+.opt[aria-pressed=true]{border-color:#1F5C36;background:var(--green);color:#fff;font-weight:700;box-shadow:0 4px 12px rgba(44,122,75,.42)}
+.opt.minima{font-size:15.5px;line-height:1.5;padding:15px 16px;border-left:5px solid var(--deep)}
+.opt.minima[aria-pressed=true]{border-left-color:#1F5C36}
+textarea::placeholder,input::placeholder{color:var(--muted);opacity:.55;font-style:italic}
+.opt-extra{margin:-2px 2px 2px;padding:12px 14px;background:var(--soft);border:1px solid var(--line);border-radius:12px}
+.opt-extra label{margin-top:0}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.duo-k{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;
+  background:var(--paper);border:2px solid var(--deep);color:var(--deep);font-weight:700;font-size:15px;
+  font-family:inherit;cursor:pointer;border-radius:13px;padding:15px 8px;box-shadow:0 2px 6px rgba(18,49,46,.16)}
+.duo-k:active{transform:translateY(1px)}
+.tameio{background:#FFF6DF;border:2px solid var(--gold);border-radius:13px;padding:14px;margin-top:10px;
+  font-size:17px;font-weight:700;color:#6B4400;line-height:1.45}
+.synd{background:var(--soft);border:1px dashed #A9C0BA;border-radius:11px;padding:11px;font-size:14px;word-break:break-all;margin-top:10px;color:var(--muted)}
+.chip[aria-pressed=true]::before{content:"✓ "}
+.card h3{margin-top:26px}
+.card h3:first-child{margin-top:0}
+.onoma-row{margin-bottom:8px}
+.num{position:relative}
+.num input{padding-right:46px}
+.nbtns{position:absolute;right:5px;top:5px;bottom:5px;width:36px;display:flex;flex-direction:column;gap:3px}
+.nb{flex:1;border:1px solid #BFD1CC;background:var(--soft);border-radius:7px;font-size:12px;line-height:1;
+  cursor:pointer;color:var(--deep);font-weight:700;padding:0;box-shadow:0 1px 2px rgba(18,49,46,.12)}
+.nb:active{transform:translateY(1px)}
+.kalymma{position:fixed;inset:0;background:rgba(10,26,24,.75);z-index:98;display:flex;align-items:center;justify-content:center;padding:18px}
+.parathyro{background:var(--paper);border-radius:18px;padding:20px;width:100%;max-width:460px;max-height:88vh;overflow:auto}
+.proepis-kalymma{touch-action:none;user-select:none;-webkit-user-select:none;position:fixed;inset:0;background:rgba(10,26,24,.88);z-index:99;display:flex;align-items:center;justify-content:center;padding:18px}
+.proepis-mesa{width:100%;max-width:620px}
+.proepis-lez{text-align:center;color:#CFE3DD;font-size:13px;margin-top:14px}
+input[type=range]{width:100%;accent-color:var(--deep)}
+.kindynos{border:1.5px dashed #E0A9A6;border-radius:13px;padding:14px;margin-top:18px;background:#FDF4F3}
+
+.trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.trio label{margin-top:0}
+
+button.btn{-webkit-touch-callout:none;user-select:none;-webkit-user-select:none;width:100%;border:0;border-radius:13px;padding:15px;font-size:16px;font-family:inherit;
+  background:var(--deep);color:#fff;font-weight:700;cursor:pointer;margin-top:16px;box-shadow:0 3px 9px rgba(18,49,46,.28)}
+button.ghost{background:var(--paper);border:2px solid var(--deep);color:var(--deep);font-weight:700;box-shadow:0 2px 6px rgba(18,49,46,.16)}
+button.mini{width:auto;padding:9px 13px;font-size:14px;margin-top:0}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row>*{flex:1}
+
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 6px;margin-top:12px}
+.tab{white-space:nowrap;padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:var(--paper);font-size:14px;cursor:pointer;color:var(--ink)}
+.tab[aria-pressed=true]{background:var(--deep);color:#fff;border-color:var(--deep)}
+
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:right;padding:9px 5px;border-bottom:1px solid var(--line);vertical-align:top}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--muted);font-weight:400;font-size:13px}
+
+.stat{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--line)}
+.stat:last-child{border-bottom:0}
+.stat b{font-family:Georgia,serif;font-size:20px;color:var(--deep);font-weight:400}
+.megala{font-family:Georgia,serif;font-size:19px;color:var(--deep);padding:10px 0;border-bottom:1px solid var(--line)}
+.buy{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px dashed var(--line)}
+.buy span:last-child{color:var(--green);font-weight:700;white-space:nowrap}
+.pill{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.yes{color:var(--green);border-color:#A9D6BB} .no{color:var(--red);border-color:#E6BEBC} .maybe{color:var(--blue);border-color:#B9D2E4}
+.item{display:grid;grid-template-columns:42px 1fr 78px 66px 34px;gap:5px;align-items:center;margin-bottom:8px}
+.item input,.item select{padding:9px 7px;font-size:14px;border-radius:9px}
+.del{background:#FBECEB;border:1px solid #E6BEBC;color:var(--red);border-radius:9px;padding:9px 0;cursor:pointer;font-size:15px}
+.foot{text-align:center;margin-top:24px}
+.foot button,.foot-l{background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;cursor:pointer;font-family:inherit;padding:0}
+.protropi{margin-top:14px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.16);
+  border-left:4px solid var(--ton,#FFD98A);font-size:15px;line-height:1.45}
+.metritis{margin-top:14px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.26);font-size:15px}
+.metritis b{font-family:Georgia,serif;font-size:21px;color:var(--ton,#FFD98A);font-weight:400}
+.ok{background:#E3F3E9;border:1px solid #A9D6BB;border-radius:11px;padding:12px;margin-top:14px;font-size:15px;color:#14502F}
+.empty{color:var(--muted);text-align:center;padding:20px 8px;font-size:15px}
+.note{background:var(--soft);border-radius:11px;padding:10px 12px;font-size:14px;color:var(--muted);margin-top:8px}
+.tick{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:15px}
+.tick input{width:22px;height:22px}
+@media (max-width:400px){.item{grid-template-columns:38px 1fr 68px 58px 32px}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<script>
+/* ================= Ρύθμιση ================= */
+/*  ΒΑΛΕ ΕΔΩ τη διεύθυνση του σεναρίου Google (τελειώνει σε /exec).
+    Όσο μένει κενή, η εφαρμογή δουλεύει μόνο τοπικά, στη συσκευή σου.  */
+const DIEFTHINSI_FYLLOU = '';
+
+/* ================= Αποθήκευση ================= */
+const KEY_ALL='ekdilosi_koini_v2', KEY_ME='ekdilosi_dikos_mou_v2';
+const meFyllo = /^https:\/\/script\.google\.com\//.test(DIEFTHINSI_FYLLOU);
+let katastasiSyndesis = meFyllo?'syndeetai':'topika';
+
+async function fylloGet(){
+  const r=await fetch(DIEFTHINSI_FYLLOU+'?energeia=ola&t='+Date.now());
+  if(!r.ok) throw new Error('σφάλμα '+r.status);
+  return r.json();
+}
+async function fylloPost(antikeimeno){
+  const r=await fetch(DIEFTHINSI_FYLLOU,{method:'POST',body:JSON.stringify(antikeimeno)});
+  if(!r.ok) throw new Error('σφάλμα '+r.status);
+  return r.json();
+}
+const cloud = typeof window.storage!=='undefined' && window.storage;
+async function load(key,koini){
+  try{ if(cloud){const r=await window.storage.get(key,koini); return r&&r.value?JSON.parse(r.value):null;} }catch(e){}
+  try{ const v=window.localStorage.getItem(key); return v?JSON.parse(v):null; }catch(e){ return null; }
+}
+async function save(key,val,koini){
+  const s=JSON.stringify(val);
+  try{ if(cloud){ await window.storage.set(key,s,koini); return; } }catch(e){}
+  try{ window.localStorage.setItem(key,s); }catch(e){}
+}
+
+/* ================= Αρχικά ================= */
+function seMeres(n){const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10);}
+function arxiko(){return{
+  ekdilosi:{
+    titlos:'', diorganotis:'', arthro:'ο', dimosios:'', thema:'trapezi', alloOnoma:'', alloEik:'', fonto:'', fotoFonto:'', plaisio:'korniza', entasi:100, orofos:'', selidaXroma:'menta', imerominia:seMeres(14), ora:'20:30', diarkeia:3,
+    topos:'', dieuthinsi:'', plat:null, mik:null,
+    parking:'', synantisi:'',
+    minima:'Έλα να φάμε, να πιούμε και να τα πούμε. Πες μου μόνο τι σου αρέσει για να τα προλάβω.',
+    prothImer:seMeres(10), prothOra:'21:00', kleista:false,
+    dora:'atomiko', doraSimeiosi:'', doroTi:'', doroPoso:'', doroSynolo:'',
+    zitaFerno:true, zitaMetakinisi:true, deixePlithos:true,
+    kodikos:'1234'
+  },
+  pota:[
+    {id:'p1',eik:'🍺',onoma:'Μπύρα',monada:'λίτρα',ana:1.2,alk:true},
+    {id:'p2',eik:'🍷',onoma:'Κρασί',monada:'λίτρα',ana:0.4,alk:true},
+    {id:'p3',eik:'🥃',onoma:'Ποτό',monada:'μπουκάλια',ana:0.2,alk:true},
+    {id:'p4',eik:'🥤',onoma:'Αναψυκτικό',monada:'τεμ.',ana:1.5,alk:false},
+    {id:'p5',eik:'🧃',onoma:'Χυμός',monada:'τεμ.',ana:1,alk:false},
+    {id:'p6',eik:'💧',onoma:'Νερό',monada:'τεμ.',ana:1.5,alk:false},
+    {id:'p7',eik:'☕',onoma:'Καφές',monada:'μερίδες',ana:1,alk:false}
+  ],
+  fagita:[
+    {id:'f1',eik:'🍕',onoma:'Πίτσα',monada:'τεμ.',ana:0.5,alk:false},
+    {id:'f2',eik:'🥩',onoma:'Κρέας',monada:'κιλά',ana:0.35,alk:false},
+    {id:'f3',eik:'🍗',onoma:'Κοτόπουλο',monada:'κιλά',ana:0.3,alk:false},
+    {id:'f4',eik:'🥗',onoma:'Σαλάτα',monada:'μερίδες',ana:0.3,alk:false},
+    {id:'f5',eik:'🍞',onoma:'Ψωμί',monada:'τεμ.',ana:0.25,alk:false},
+    {id:'f6',eik:'🍰',onoma:'Γλυκό',monada:'μερίδες',ana:1,alk:false},
+    {id:'f7',eik:'🍔',onoma:'Μπιφτέκι',monada:'τεμ.',ana:1,alk:false},
+    {id:'f8',eik:'🥟',onoma:'Τυροπιτάκια',monada:'τεμ.',ana:3,alk:false},
+    {id:'f9',eik:'🥔',onoma:'Πατατάκια',monada:'πακέτα',ana:0.3,alk:false},
+    {id:'f10',eik:'🥜',onoma:'Ξηροί καρποί',monada:'κιλά',ana:0.05,alk:false}
+  ],
+  apantiseis:[],
+  ekdId:'e'+Date.now()+Math.random().toString(36).slice(2,6)
+}}
+const THEMATA=[
+  {id:'trapezi', eik:'🍽️', onoma:'Τραπέζι',        a:'#123A5C', b:'#1B5680', ton:'#FFD98A'},
+  {id:'parti',   eik:'🎉', onoma:'Πάρτι',          a:'#0E4F49', b:'#136B60', ton:'#FFD98A'},
+  {id:'psistaria',eik:'🍖',onoma:'Ψησταριά',       a:'#6B2E12', b:'#8C4419', ton:'#FFC46B'},
+  {id:'genethlia',eik:'🎂',onoma:'Γενέθλια',       a:'#5B2A6E', b:'#7C3B93', ton:'#FFD3EC'},
+  {id:'gamos',   eik:'💍', onoma:'Γάμος',          a:'#2F3E46', b:'#44565F', ton:'#EBDAB0'},
+  {id:'vaptisi', eik:'👶', onoma:'Βάπτιση',        a:'#1B6B8A', b:'#2A90B2', ton:'#FFE9A8'},
+  {id:'paidiko', eik:'🧸', onoma:'Παιδικό πάρτι',  a:'#B03A5B', b:'#D4547A', ton:'#FFE066'},
+  {id:'ergasia', eik:'🏢', onoma:'Επαγγελματική',  a:'#1F2A44', b:'#33436B', ton:'#A9C8FF'},
+  {id:'giorti',  eik:'🎄', onoma:'Γιορτή',         a:'#6A1B1B', b:'#8E2A2A', ton:'#F3D9A6'},
+  {id:'allo',    eik:'✏️', onoma:'Άλλο',           a:'#243B36', b:'#365049', ton:'#EBDCA8'}
+];
+const FONTA=[
+  {id:'',onoma:'Σκέτο χρώμα'},
+  {id:'konfeti',onoma:'🎉 Κονφετί',megethos:'150px 150px',
+   css:"radial-gradient(circle at 18% 22%, rgba(255,206,70,.95) 0 7px, transparent 8px), radial-gradient(circle at 72% 34%, rgba(255,95,140,.9) 0 6px, transparent 7px), radial-gradient(circle at 38% 72%, rgba(90,205,255,.9) 0 7px, transparent 8px), radial-gradient(circle at 88% 78%, rgba(130,255,170,.85) 0 6px, transparent 7px), radial-gradient(circle at 55% 12%, rgba(255,255,255,.75) 0 4px, transparent 5px)"},
+  {id:'balonia',onoma:'🎈 Μπαλόνια',megethos:'170px 190px',
+   css:"radial-gradient(ellipse 30px 40px at 20% 26%, rgba(255,105,140,.9) 0 100%, transparent 100%), radial-gradient(ellipse 26px 35px at 68% 40%, rgba(255,208,80,.9) 0 100%, transparent 100%), radial-gradient(ellipse 24px 32px at 44% 80%, rgba(110,195,255,.88) 0 100%, transparent 100%)"},
+  {id:'asteria',onoma:'✨ Αστέρια',megethos:'110px 110px',
+   css:"radial-gradient(circle at 15% 20%, rgba(255,255,255,1) 0 2.6px, transparent 3.4px), radial-gradient(circle at 62% 45%, rgba(255,240,190,.95) 0 3.2px, transparent 4px), radial-gradient(circle at 85% 78%, rgba(255,255,255,.9) 0 2.2px, transparent 3px), radial-gradient(circle at 35% 82%, rgba(255,240,190,.85) 0 2.4px, transparent 3.2px)"},
+  {id:'xioni',onoma:'❄️ Χιόνι',megethos:'130px 130px',
+   css:"radial-gradient(circle at 22% 28%, rgba(255,255,255,.95) 0 4px, transparent 5px), radial-gradient(circle at 64% 16%, rgba(255,255,255,.85) 0 3px, transparent 4px), radial-gradient(circle at 82% 64%, rgba(255,255,255,.9) 0 4px, transparent 5px), radial-gradient(circle at 40% 80%, rgba(255,255,255,.8) 0 3px, transparent 4px)"},
+  {id:'kapnos',onoma:'🍖 Κάρβουνα',megethos:'auto',
+   css:"radial-gradient(circle at 25% 80%, rgba(255,130,40,.6) 0 70px, transparent 110px), radial-gradient(circle at 80% 26%, rgba(255,70,30,.5) 0 60px, transparent 100px)"}
+];
+const XROMATA=[
+  {id:'menta', onoma:'Μέντα',   bg:'#EEF2F1', paper:'#FFFFFF', ink:'#12312E', line:'#D3E0DC', soft:'#F3F8F6', muted:'#5C7370'},
+  {id:'krem',  onoma:'Κρεμ',    bg:'#F3EEE4', paper:'#FFFDF8', ink:'#33291C', line:'#E0D5C2', soft:'#F8F4EC', muted:'#6E6151'},
+  {id:'galazio',onoma:'Γαλάζιο',bg:'#EAF0F6', paper:'#FFFFFF', ink:'#152A3D', line:'#CFDCE9', soft:'#F2F6FA', muted:'#54697E'},
+  {id:'rodakini',onoma:'Ροδακινί',bg:'#F7EDE9',paper:'#FFFBFA', ink:'#3A241F', line:'#E9D3CB', soft:'#FBF3F0', muted:'#7A5B52'},
+  {id:'levanta',onoma:'Λεβάντα',bg:'#F0EDF7', paper:'#FFFFFF', ink:'#26203A', line:'#DCD5EC', soft:'#F6F3FC', muted:'#645C7E'},
+  {id:'ammos', onoma:'Άμμος',   bg:'#F1EFE6', paper:'#FFFFFF', ink:'#2C2E20', line:'#DCD9C6', soft:'#F7F6EF', muted:'#666851'},
+  {id:'nyxta', onoma:'Νύχτα',   bg:'#1B2224', paper:'#242D30', ink:'#EDF3F2', line:'#39464A', soft:'#2C3639', muted:'#9BAEB2'}
+];
+function valeXroma(){
+  const x=XROMATA.find(c=>c.id===DB.ekdilosi.selidaXroma)||XROMATA[0], r=document.documentElement.style;
+  r.setProperty('--bg',x.bg); r.setProperty('--paper',x.paper); r.setProperty('--ink',x.ink);
+  r.setProperty('--line',x.line); r.setProperty('--soft',x.soft); r.setProperty('--muted',x.muted);
+}
+const MINYMATA={
+  parti:[
+    'Έλα να φάμε, να πιούμε και να τα πούμε. Πες μου μόνο τι σου αρέσει για να τα προλάβω.',
+    'Στήνουμε πάρτι και λείπεις μόνο εσύ. Πες μου αν θα έρθεις για να μετρήσω ποτήρια.',
+    'Μουσική, φαγητό και παρέα. Εσύ φέρε μόνο τον εαυτό σου και τη διάθεσή σου.',
+    'Ένα βράδυ χωρίς αφορμή, γιατί έχουμε καιρό να βρεθούμε όλοι μαζί.',
+    'Ό,τι και να έχεις εκείνο το βράδυ, ακύρωσέ το. Σε περιμένουμε.'
+  ],
+  psistaria:[
+    'Ανάβουμε τα κάρβουνα και σε περιμένουμε. Πες μου τι τρως για να ξέρω πόσα να πάρω.',
+    'Ψησταριά, παρέα και μπίρες στη σκιά. Έλα με την ησυχία σου.',
+    'Το κρέας το αναλαμβάνω εγώ, εσύ φέρε την όρεξη. Πες μου μόνο πόσοι θα είστε.',
+    'Μαζευόμαστε στην αυλή για ψητά. Φαγητό μέχρι να πούμε φτάνει.',
+    'Καλοκαιρινό τραπέζι στα κάρβουνα. Θα χαρώ πολύ να σε δω.'
+  ],
+  genethlia:[
+    'Κλείνω άλλον έναν χρόνο και θέλω να τον γιορτάσω με τους δικούς μου ανθρώπους.',
+    'Έχω γενέθλια και δεν γίνεται να λείπεις. Έλα να φάμε τούρτα και να γελάσουμε.',
+    'Ένα ποτό, μια τούρτα και οι άνθρωποι που αγαπώ. Λείπεις μόνο εσύ.',
+    'Γιορτάζω και σε θέλω εκεί. Δώρα δεν χρειάζονται, μόνο να έρθεις.',
+    'Μεγαλώνω, αλλά όχι μόνος. Έλα να το γιορτάσουμε μαζί.'
+  ],
+  trapezi:[
+    'Στρώνουμε τραπέζι στο σπίτι και θα χαρούμε πολύ να σε δούμε.',
+    'Ένα ήσυχο τραπέζι με καλό φαγητό και ατέλειωτη κουβέντα. Έλα.',
+    'Μαγειρεύω και σε περιμένω. Πες μου μόνο τι τρως και τι όχι.',
+    'Καθόμαστε επιτέλους όλοι μαζί σε ένα τραπέζι. Μη λείψεις.',
+    'Καλό κρασί, σπιτικό φαγητό και παρέα που αξίζει. Σε περιμένουμε.'
+  ],
+  gamos:[
+    'Παντρευόμαστε και θέλουμε να είσαι εκεί τη μέρα που ξεκινάμε μαζί.',
+    'Μια μέρα που θα τη θυμόμαστε για πάντα. Θα χαρούμε πολύ να τη μοιραστούμε μαζί σου.',
+    'Ενώνουμε τις ζωές μας και σε θέλουμε δίπλα μας.',
+    'Με πολλή χαρά σας προσκαλούμε στον γάμο μας.',
+    'Θα λέμε το ναι μας. Έλα να το ακούσεις από κοντά.'
+  ],
+  vaptisi:[
+    'Βαφτίζουμε τον μικρό μας θησαυρό και θέλουμε να είσαι εκεί.',
+    'Μια όμορφη μέρα για την οικογένειά μας. Θα χαρούμε να τη μοιραστούμε μαζί σου.',
+    'Δίνουμε όνομα στο παιδί μας και μετά τρώμε και γλεντάμε όλοι μαζί.',
+    'Με χαρά σε προσκαλούμε στη βάφτιση του μικρού μας.',
+    'Λίγη γιορτή, πολλή αγάπη και εσύ ανάμεσά μας.'
+  ],
+  paidiko:[
+    'Έχουμε παιδικό πάρτι με παιχνίδια, τούρτα και φασαρία. Ελάτε!',
+    'Μαζεύουμε τα παιδιά για ένα απόγευμα γεμάτο γέλια. Πες μου πόσα θα είστε.',
+    'Τούρτα, μπαλόνια και τρέξιμο μέχρι τελικής πτώσης. Σας περιμένουμε.',
+    'Γιορτάζουμε παιδικά και θέλουμε παρέα. Ελάτε με την ησυχία σας.',
+    'Ένα απόγευμα για τα παιδιά και έναν καφέ για τους μεγάλους.'
+  ],
+  ergasia:[
+    'Σας προσκαλούμε στην εκδήλωσή μας. Θα χαρούμε πολύ με την παρουσία σας.',
+    'Μια βραδιά για να βρεθούμε εκτός γραφείου και να τα πούμε πιο χαλαρά.',
+    'Κλείνουμε τη χρονιά με μια συνάντηση όλων μας. Δηλώστε συμμετοχή για να οργανωθούμε.',
+    'Θα χαρούμε να σας έχουμε κοντά μας. Παρακαλούμε επιβεβαιώστε ότι θα παρευρεθείτε.',
+    'Λίγη δουλειά, αρκετό φαγητό και καλή παρέα. Σας περιμένουμε.'
+  ],
+  giorti:[
+    'Γιορτές είναι, ας βρεθούμε όπως κάθε χρόνο. Σε περιμένουμε.',
+    'Στρώνουμε γιορτινό τραπέζι και θέλουμε όλη την παρέα.',
+    'Λίγη γιορτή, πολύ φαγητό και οι δικοί μας άνθρωποι γύρω από ένα τραπέζι.',
+    'Ας κλείσουμε τη χρονιά όπως πρέπει, όλοι μαζί.',
+    'Έλα να τα πούμε, να φάμε και να τσουγκρίσουμε.'
+  ]
+};
+const TITLOI={
+  parti:['Πάρτι στην αυλή','Βραδιά στο σπίτι','Πάρτι στην ταράτσα','Καλοκαιρινό πάρτι','Γλέντι με την παρέα'],
+  psistaria:['Ψησταριά στην αυλή','Σουβλάκια στον κήπο','Μπάρμπεκιου','Ψητά στην παραλία','Κυριακάτικη ψησταριά'],
+  genethlia:['Τα γενέθλιά μου','Γενέθλια στο σπίτι','Γιορτάζω τα γενέθλιά μου','Πάρτι γενεθλίων','Κερνάω για τα γενέθλιά μου'],
+  trapezi:['Τραπέζι στο σπίτι','Κυριακάτικο τραπέζι','Δείπνο με φίλους','Οικογενειακό τραπέζι','Βραδινό τραπέζι'],
+  gamos:['Ο γάμος μας','Γάμος','Η μεγάλη μας μέρα','Γάμος και γλέντι','Παντρευόμαστε'],
+  vaptisi:['Η βάφτισή μας','Βάφτιση','Βάφτιση και τραπέζι','Η μέρα του μικρού μας','Βαφτίζουμε'],
+  paidiko:['Παιδικό πάρτι','Πάρτι για τα παιδιά','Παιδική γιορτή','Απόγευμα για τα παιδιά','Τούρτα και παιχνίδια'],
+  ergasia:['Εταιρική εκδήλωση','Συνάντηση ομάδας','Εορταστική εκδήλωση','Βραδιά της εταιρείας','Επαγγελματικό δείπνο'],
+  giorti:['Γιορτινό τραπέζι','Χριστούγεννα','Πρωτοχρονιά','Πασχαλινό τραπέζι','Γιορτή με την οικογένεια'],
+  allo:['Η εκδήλωσή μας','Μάζωξη','Γιορτή','Συνάντηση','Βραδιά']
+};
+const PARKING=['Στον δρόμο, εύκολα','Στον δρόμο, με δυσκολία','Σε αλάνα δίπλα','Σε πάρκινγκ','Ιδιωτικό πάρκινγκ','Δεν υπάρχει, ελάτε με ταξί'];
+const TOPOI=['Στο σπίτι μας','Στην αυλή','Στον κήπο','Στην ταράτσα','Στο εξοχικό','Σε παιδότοπο','Σε εστιατόριο','Σε ταβέρνα','Στην παραλία','Σε αίθουσα','Στο γραφείο'];
+const PLAISIA=[
+  {id:'',onoma:'Χωρίς πλαίσιο'},
+  {id:'xriso',onoma:'Χρυσό'},
+  {id:'diakek',onoma:'Διακεκομμένο'},
+  {id:'diplo',onoma:'Διπλό'},
+  {id:'korniza',onoma:'Κορνίζα'},
+  {id:'fotini',onoma:'Φωτεινό'}
+];
+function fontoStyl(){
+  const e=DB.ekdilosi, en=(typeof e.entasi==='number'?e.entasi:100)/100;
+  if(e.fotoFonto){
+    const skia=(0.78-0.5*en).toFixed(2);
+    return `background-image:linear-gradient(rgba(4,24,22,${skia}),rgba(4,24,22,${(+skia+0.14).toFixed(2)})),url(${e.fotoFonto});background-size:cover;background-position:center`;
+  }
+  const f=FONTA.find(x=>x.id===e.fonto);
+  if(f&&f.css){
+    const kalymma=(0.85*(1-en)).toFixed(2);
+    const komm=f.css.split('),').length;
+    const meg=f.megethos==='auto'?'auto':Array(komm).fill(f.megethos).join(',');
+    return `background-image:linear-gradient(rgba(9,38,35,${kalymma}),rgba(9,38,35,${kalymma})),${f.css},linear-gradient(165deg,var(--deep) 0%,var(--deep2) 100%);`
+      +`background-size:cover,${meg},cover;background-repeat:no-repeat,repeat,no-repeat`;
+  }
+  return '';
+}
+function themaTora(){
+  const t=THEMATA.find(x=>x.id===DB.ekdilosi.thema)||THEMATA[0];
+  if(t.id==='allo') return {...t, eik:DB.ekdilosi.alloEik||'✏️', onoma:DB.ekdilosi.alloOnoma||'Άλλο'};
+  return t;
+}
+function valeThema(){
+  const t=themaTora(), r=document.documentElement.style;
+  r.setProperty('--deep',t.a); r.setProperty('--deep2',t.b); r.setProperty('--ton',t.ton);
+  valeXroma();
+}
+const FERSIMO=[
+  {id:'glyko',eik:'🍰',onoma:'Γλυκό'},
+  {id:'poto',eik:'🍷',onoma:'Ποτό'},
+  {id:'fagito',eik:'🍽️',onoma:'Φαγητό'},
+  {id:'salata',eik:'🥗',onoma:'Σαλάτα'},
+  {id:'psomi',eik:'🍞',onoma:'Ψωμί'},
+  {id:'pagos',eik:'🧊',onoma:'Πάγο'},
+  {id:'allo',eik:'📦',onoma:'Άλλο'}
+];
+const fersimoOnoma=id=>(FERSIMO.find(f=>f.id===id)||{}).onoma||id;
+const fersimoEik=id=>(FERSIMO.find(f=>f.id===id)||{}).eik||'🎒';
+function keimenoFernei(a){
+  return (a.ferno||[]).filter(f=>f.ti).map(f=>fersimoOnoma(f.kat)+': '+f.ti).join(' · ');
+}
+const ADIAFORO=[
+  {id:'p_opoio',eik:'💡',onoma:'Ό,τι προτείνετε'},
+  {id:'f_opoio',eik:'💡',onoma:'Ό,τι προτείνετε'}
+];
+const OLA_POTA=()=>DB.pota.concat([ADIAFORO[0]]);
+const OLA_FAGITA=()=>DB.fagita.concat([ADIAFORO[1]]);
+const DIATROFI=[
+  {id:'d_xort',eik:'🥦',onoma:'Χορτοφαγικό'},
+  {id:'d_vegan',eik:'🌱',onoma:'Χωρίς ζωικά'},
+  {id:'d_paidiko',eik:'🧒',onoma:'Παιδική μερίδα'},
+  {id:'d_glout',eik:'🌾',onoma:'Χωρίς γλουτένη'}
+];
+const METAKINISI=[
+  {id:'m_auto',eik:'🚗',onoma:'Με αυτοκίνητο'},
+  {id:'m_mmm',eik:'🚌',onoma:'Με λεωφορείο ή μετρό'},
+  {id:'m_taxi',eik:'🚕',onoma:'Με ταξί'},
+  {id:'m_synod',eik:'🙋',onoma:'Ψάχνω να με πάρει κάποιος'}
+];
+const DORA=[
+  {id:'kanena',onoma:'Χωρίς δώρα',
+   epeksigisi:'Δεν θα εμφανίζεται καθόλου ερώτηση για δώρα στους καλεσμένους.'},
+  {id:'atomiko',onoma:'Ό,τι θέλει ο καθένας',
+   epeksigisi:'Ο καλεσμένος θα δηλώνει αν θα φέρει δικό του δώρο ή τίποτα.'},
+  {id:'koino',onoma:'Ένα κοινό δώρο απ᾽ όλους',
+   epeksigisi:'Ο καλεσμένος θα βλέπει τι είναι το κοινό δώρο και θα δηλώνει αν μπαίνει.'}
+];
+
+/* ================= Κατάσταση ================= */
+let DB=null, EGO=null, othoni='kalesmenos', karteta='ekdilosi', xekleidoto=false, meIsos=false, minimaOk='', minimaPin='', minimaFoto='', rotaMidenismo=false, katalava=false, anoixtoIst=-1, anoixtoSyn='', anoixtiApostoli=false, minimaEkd='', menouAllages=false, anoixtoParathyro='', anoixtoQr=false, minimaApost='';
+let p={};
+function katharoProxeiro(){return{onoma:'',apantisi:'',enilikes:1,paidia:0,vrefi:0,onomata:[],vanaki:false,leoforeio:false,
+  pota:[],fagita:[],diatrofi:[],alergies:'',elef_pota:'',elef_fagita:'',ferno:[],doro:'',posoDorou:'',metakinisi:'',theseis:0,theloThesi:false,simeiosi:''};}
+p=katharoProxeiro();
+
+const kanoniko=x=>String(x||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ').trim();
+const el=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const arith=n=>Number.isInteger(n)?String(n):n.toFixed(1).replace('.',',');
+const MINES=['Ιανουαρίου','Φεβρουαρίου','Μαρτίου','Απριλίου','Μαΐου','Ιουνίου','Ιουλίου','Αυγούστου','Σεπτεμβρίου','Οκτωβρίου','Νοεμβρίου','Δεκεμβρίου'];
+const MERES=['Κυριακή','Δευτέρα','Τρίτη','Τετάρτη','Πέμπτη','Παρασκευή','Σάββατο'];
+function grafiImerominia(iso){ if(!iso) return '—'; const d=new Date(iso+'T12:00:00'); return MERES[d.getDay()]+' '+d.getDate()+' '+MINES[d.getMonth()]; }
+
+/* ================= Εκκίνηση ================= */
+(async function(){
+  DB = await load(KEY_ALL,true) || arxiko();
+  if(meFyllo){
+    try{
+      const apo=await fylloGet();
+      if(apo && apo.ekdilosi) DB.ekdilosi=Object.assign(DB.ekdilosi,apo.ekdilosi);
+      if(apo && Array.isArray(apo.pota) && apo.pota.length) DB.pota=apo.pota;
+      if(apo && Array.isArray(apo.fagita) && apo.fagita.length) DB.fagita=apo.fagita;
+      if(apo && Array.isArray(apo.apantiseis)) DB.apantiseis=apo.apantiseis;
+      if(apo && Array.isArray(apo.istoriko)) DB.istoriko=apo.istoriko;
+      if(apo && apo.ekdId) DB.ekdId=apo.ekdId;
+      katastasiSyndesis='syndedemeno';
+    }catch(err){ katastasiSyndesis='xoris'; }
+  }
+  const arx=arxiko().ekdilosi;
+  Object.keys(arx).forEach(k=>{ if(DB.ekdilosi[k]===undefined) DB.ekdilosi[k]=arx[k]; });
+  if(!DB.ekdosi3){
+    arxiko().fagita.forEach(f=>{ if(!DB.fagita.some(x=>x.id===f.id)) DB.fagita.push(f); });
+    DB.ekdosi3=true;
+  }
+  if(!DB.ekdId) DB.ekdId='e'+Date.now();
+  const dikoMou = await load(KEY_ME,false);
+  EGO = (dikoMou && typeof dikoMou==='object' && dikoMou.ekdId===DB.ekdId) ? dikoMou.id : null;
+  if(EGO && !DB.apantiseis.some(a=>a.id===EGO)) EGO=null;
+  if(EGO){
+    const d=DB.apantiseis.find(a=>a.id===EGO);
+    if(d) p={onoma:d.onoma,apantisi:d.apantisi,enilikes:d.enilikes,paidia:d.paidia,vrefi:d.vrefi,onomata:Array.isArray(d.onomata)?d.onomata.slice():(d.onomata?String(d.onomata).split(',').map(x=>x.trim()).filter(Boolean):[]),
+      pota:[...(d.pota||[])],fagita:[...(d.fagita||[])],elef_pota:d.elef_pota||'',elef_fagita:d.elef_fagita||'',diatrofi:[...(d.diatrofi||[])],alergies:d.alergies||'',
+      ferno:Array.isArray(d.ferno)?d.ferno.map(f=>({...f})):(d.fernoTi?[{kat:'allo',ti:d.fernoTi}]:[]),doro:d.doro||'',posoDorou:d.posoDorou||'',metakinisi:d.metakinisi||'',
+      theseis:d.theseis||0,vanaki:(d.theseis||0)>4,leoforeio:(d.theseis||0)>8,theloThesi:!!d.theloThesi,simeiosi:d.simeiosi||''};
+  }
+  zografise();
+  try{ history.replaceState({app:1},''); history.pushState({app:2},''); }catch(e){}
+  window.addEventListener('popstate',()=>{
+    try{ history.pushState({app:2},''); }catch(e){}
+    if(anoixtoParathyro){ mazepse(); anoixtoParathyro=''; zografise(); return; }
+    if(anoixtoQr){ anoixtoQr=false; zografise(); return; }
+    if(anoixtiApostoli){ anoixtiApostoli=false; zografise(); return; }
+    if(othoni==='diaxeirisi'){ othoni='kalesmenos'; minimaOk=''; zografise('panw'); return; }
+  });
+  setInterval(()=>{ const x=el('antistrofi'); if(x){ const k=htmlProthesmias(); x.innerHTML=k; x.style.display=k?'':'none'; } },30000);
+  setInterval(async()=>{
+    if(othoni!=='diaxeirisi'||!xekleidoto) return;
+    const f=await fresko();
+    if(f && f.apantiseis && JSON.stringify(f.apantiseis)!==JSON.stringify(DB.apantiseis)){ DB.apantiseis=f.apantiseis; zografise(); }
+  },20000);
+})();
+let xronoFyllou=null;
+async function apothikefse(){
+  await save(KEY_ALL,DB,true);
+  if(!meFyllo) return;
+  clearTimeout(xronoFyllou);
+  xronoFyllou=setTimeout(async()=>{
+    try{
+      await fylloPost({energeia:'ekdilosi', dedomena:{
+        ekdilosi:DB.ekdilosi, pota:DB.pota, fagita:DB.fagita, istoriko:DB.istoriko||[], ekdId:DB.ekdId}});
+      katastasiSyndesis='syndedemeno';
+    }catch(err){ katastasiSyndesis='xoris'; }
+  },500);
+}
+async function fresko(){
+  if(meFyllo){
+    try{ const apo=await fylloGet(); katastasiSyndesis='syndedemeno'; return apo; }
+    catch(err){ katastasiSyndesis='xoris'; return null; }
+  }
+  return await load(KEY_ALL,true);
+}
+
+/* ================= Υπολογισμοί ================= */
+function erxontai(valeIsos){
+  return DB.apantiseis.filter(a=>a.apantisi==='nai'||(valeIsos&&a.apantisi==='isos'));
+}
+function plithos(valeIsos){
+  const l=erxontai(valeIsos);
+  const en=l.reduce((s,a)=>s+(a.enilikes||0),0);
+  const pa=l.reduce((s,a)=>s+(a.paidia||0),0);
+  const vr=l.reduce((s,a)=>s+(a.vrefi||0),0);
+  return {enilikes:en,paidia:pa,vrefi:vr,synolo:en+pa+vr};
+}
+function zitisi(lista,klidi,valeIsos){
+  return lista.map(it=>{
+    let en=0,pa=0,psifoi=0;
+    erxontai(valeIsos).forEach(a=>{
+      if((a[klidi]||[]).includes(it.id)){ en+=(a.enilikes||0); pa+=(a.paidia||0); psifoi++; }
+    });
+    return {...it,en,pa,psifoi,atoma:en+pa};
+  });
+}
+function symvouliAgoras(it,posotita){
+  const n=(it.onoma||'').toLowerCase(), u=it.monada;
+  if(/πίτσα|πιτσα/.test(n)&&u==='τεμ.') return Math.ceil(posotita)+' οικογενειακές των 8 κομματιών';
+  if(/κρ[έε]ας|μοσχαρ|χοιριν|αρν|μπριζ/.test(n)&&u==='κιλά') return 'περίπου 350 γρ. ανά ενήλικα';
+  if(/κοτ[όο]πουλ/.test(n)&&u==='κιλά') return 'περίπου '+Math.ceil(posotita/1.4)+' ολόκληρα κοτόπουλα';
+  if(/μπιφτ[έε]κ|μπι?[φγ]τ/.test(n)) return 'ένα μεγάλο ή δύο μικρά ανά άτομο';
+  if(/λουκ[άα]νικ/.test(n)&&u==='κιλά') return 'περίπου '+Math.ceil(posotita*8)+' λουκάνικα';
+  if(/τυροπ|πιτ[άα]κ|σνακ|κεφτ/.test(n)&&u==='τεμ.') return 'τρία κομμάτια ανά άτομο';
+  if(/σαλ[άα]τ/.test(n)&&u==='μερίδες') return 'περίπου '+Math.ceil(posotita/4)+' μεγάλα μπολ';
+  if(/ψωμ|φραντζ/.test(n)) return 'περίπου '+Math.ceil(posotita)+' φραντζόλες';
+  if(/γλυκ|το[υύ]ρτα|επιδ[όο]ρπ/.test(n)) return 'ένα κομμάτι ανά άτομο';
+  if(/πατατ[άα]κ|γαριδ[άα]κ/.test(n)&&u==='πακέτα') return 'μεγάλα σακουλάκια';
+  if(/ξηρο[υύ]ς? καρπ|αμ[υύ]γδαλ|φιστ[ίι]κ/.test(n)&&u==='κιλά') return 'μια χούφτα ανά άτομο';
+  if(/αναψυκτ|χυμ[όο]/.test(n)&&u==='τεμ.') return 'κουτάκια 330 ml ή φιάλες 1,5 λίτρου';
+  if(/νερ[όο]/.test(n)&&u==='τεμ.') return 'μπουκάλια 1,5 λίτρου';
+  if(/καφ[έε]/.test(n)&&u==='μερίδες') return 'ένας ανά άτομο, με λίγους παραπάνω';
+  if(/π[άα]γο/.test(n)) return 'δύο σακούλες για κάθε δέκα άτομα';
+  if(u==='κιλά') return 'περίπου '+arith(Math.round(it.ana*1000))+' γρ. ανά ενήλικα';
+  return '';
+}
+function posotita(it){
+  const vasi = it.alk ? it.en : it.en + it.pa*0.6;
+  const raw = vasi*it.ana;
+  if(raw<=0) return '—';
+  if(it.monada==='κιλά') return arith(Math.ceil(raw*10)/10)+' κιλά';
+  if(it.monada==='λίτρα'){
+    const l=Math.ceil(raw*2)/2;
+    const mp=/κρασ|σαμπ[άα]ν/i.test(it.onoma)?0.75:0.5;
+    const posa=Math.ceil(l/mp);
+    return arith(l)+' λίτρα · '+posa+' μπουκάλια των '+(mp===0.75?'750':'500')+' ml';
+  }
+  return Math.ceil(raw)+' '+it.monada;
+}
+
+/* ================= Χάρτης ================= */
+function exeiPineza(){const e=DB.ekdilosi;return typeof e.plat==='number'&&typeof e.mik==='number';}
+function stoxosXarti(){const e=DB.ekdilosi;return exeiPineza()?e.plat.toFixed(6)+','+e.mik.toFixed(6):(e.dieuthinsi||e.topos||'');}
+function syndesmosXarti(){const s=stoxosXarti();return s?'https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(s):'';}
+function vresSyntetagmenes(k){
+  const t=decodeURIComponent((k||'').trim()).replace(/[()]/g,' ');
+  const elegxos=(a,b)=>(!isNaN(a)&&!isNaN(b)&&Math.abs(a)<=90&&Math.abs(b)<=180)?{plat:a,mik:b}:null;
+
+  let m=t.match(/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/);
+  if(m){ const r=elegxos(parseFloat(m[1]),parseFloat(m[2])); if(r) return r; }
+
+  m=t.match(/[?&](?:q|ll|daddr|destination|center)=(-?\d+\.\d+)\s*,\s*(-?\d+\.\d+)/);
+  if(m){ const r=elegxos(parseFloat(m[1]),parseFloat(m[2])); if(r) return r; }
+
+  m=t.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+  if(m){ const r=elegxos(parseFloat(m[1]),parseFloat(m[2])); if(r) return r; }
+
+  m=t.match(/(\d{1,3})[°º]\s*(\d{1,2})['′]\s*([\d.]+)["″]?\s*([NSΒΝ])[,\s]+(\d{1,3})[°º]\s*(\d{1,2})['′]\s*([\d.]+)["″]?\s*([EWΑΔ])/i);
+  if(m){
+    const dms=(d,mn,sc)=>(+d)+(+mn)/60+(+sc)/3600;
+    let a=dms(m[1],m[2],m[3]), b=dms(m[5],m[6],m[7]);
+    if(/^[SΝ]$/i.test(m[4])&&m[4].toUpperCase()==='S') a=-a;
+    if(m[8].toUpperCase()==='W') b=-b;
+    const r=elegxos(a,b); if(r) return r;
+  }
+
+  m=t.match(/(-?\d{1,2}[.,]\d{3,})\s*[,;\s/]+\s*(-?\d{1,3}[.,]\d{3,})/);
+  if(m){ const r=elegxos(parseFloat(m[1].replace(',','.')),parseFloat(m[2].replace(',','.'))); if(r) return r; }
+  return null;
+}
+
+/* ================= Προθεσμία ================= */
+function oraProthesmias(){const e=DB.ekdilosi;return e.prothImer?new Date(e.prothImer+'T'+(e.prothOra||'23:59')+':00').getTime():null;}
+function kleidomeno(){ if(DB.ekdilosi.kleista) return true; const t=oraProthesmias(); return t!==null&&Date.now()>t; }
+function keimenoProthesmias(){
+  const e=DB.ekdilosi;
+  if(e.kleista) return {meg:'Οι δηλώσεις έκλεισαν',mik:''};
+  const t=oraProthesmias(); if(t===null) return null;
+  const d=t-Date.now();
+  if(d<=0) return {meg:'Η προθεσμία πέρασε',mik:'Έληξε '+grafiImerominia(e.prothImer)+', '+e.prothOra};
+  const me=Math.floor(d/86400000), or=Math.floor(d/3600000)%24, le=Math.floor(d/60000)%60;
+  let apo;
+  if(me>0) apo=(me===1?'μία μέρα':me+' μέρες')+(or?' και '+(or===1?'μία ώρα':or+' ώρες'):'');
+  else if(or>0) apo=(or===1?'μία ώρα':or+' ώρες')+(le?' και '+le+' λεπτά':'');
+  else apo=le<=1?'λιγότερο από ένα λεπτό':le+' λεπτά';
+  return {meg:'Απομένουν '+apo,mik:'Απάντησε μέχρι '+grafiImerominia(e.prothImer)+', '+e.prothOra};
+}
+function htmlProthesmias(){
+  const k=keimenoProthesmias();
+  if(!k) return '';
+  return `<span class="dl-big">${esc(k.meg)}</span>${k.mik?`<span class="dl-sub">${esc(k.mik)}</span>`:''}`;
+}
+
+/* ================= Ημερολόγιο ================= */
+function oresEkdilosis(){
+  const e=DB.ekdilosi;
+  const a=new Date(e.imerominia+'T'+(e.ora||'20:00')+':00');
+  return {arxi:a, telos:new Date(a.getTime()+(e.diarkeia||4)*3600000)};
+}
+function perigrafiEkdilosis(){
+  const e=DB.ekdilosi;
+  return [e.minima,e.topos?'Τόπος: '+e.topos:'',e.orofos?'Όροφος: '+e.orofos:'',e.parking?'Πάρκινγκ: '+e.parking:'',e.synantisi?'Σημείο συνάντησης: '+e.synantisi:'']
+    .filter(Boolean).join('\n');
+}
+function syndesmosGoogle(){
+  const e=DB.ekdilosi, {arxi,telos}=oresEkdilosis();
+  const f=d=>d.toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(e.titlos)
+    +'&dates='+f(arxi)+'/'+f(telos)+'&details='+encodeURIComponent(perigrafiEkdilosis())
+    +'&location='+encodeURIComponent(stoxosXarti()||e.topos||'');
+}
+function keimenoIcs(){
+  const e=DB.ekdilosi, {arxi,telos}=oresEkdilosis();
+  const f=d=>d.toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+  const kath=s=>String(s||'').replace(/\\/g,'\\\\').replace(/[,;]/g,m=>'\\'+m).replace(/\n/g,'\\n');
+  const keim=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//prosklisi//EL','CALSCALE:GREGORIAN','BEGIN:VEVENT',
+    'UID:'+Date.now()+'@prosklisi','DTSTAMP:'+f(new Date()),'DTSTART:'+f(arxi),'DTEND:'+f(telos),
+    'SUMMARY:'+kath(e.titlos),'DESCRIPTION:'+kath(perigrafiEkdilosis()),'LOCATION:'+kath(e.dieuthinsi||e.topos||''),
+    'BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY','DESCRIPTION:'+kath(e.titlos+' αύριο'),'END:VALARM',
+    'BEGIN:VALARM','TRIGGER:-PT2H','ACTION:DISPLAY','DESCRIPTION:'+kath(e.titlos+' σε δύο ώρες'),'END:VALARM',
+    'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  return keim;
+}
+function katevaseImerologio(){
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([keimenoIcs()],{type:'text/calendar;charset=utf-8'}));
+  a.download='ekdilosi.ics'; a.click(); URL.revokeObjectURL(a.href);
+}
+function prostheseImerologio(){
+  const ua=navigator.userAgent||'';
+  const ios=/iPad|iPhone|iPod/.test(ua)||(/Mac/.test(ua)&&navigator.maxTouchPoints>1);
+  if(ios){ window.location.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(keimenoIcs()); return; }
+  katevaseImerologio();
+}
+
+/* Συμπαγής δημιουργός QR — byte mode, επίπεδο διόρθωσης M, εκδόσεις 1-10 */
+function qrModules(keimeno){
+  const XOR=0x11D, EXP=new Array(512), LOG=new Array(256);
+  for(let i=0,x=1;i<255;i++){ EXP[i]=x; LOG[x]=i; x<<=1; if(x&256) x^=XOR; }
+  for(let i=255;i<512;i++) EXP[i]=EXP[i-255];
+  const mul=(a,b)=>(a===0||b===0)?0:EXP[LOG[a]+LOG[b]];
+
+  const CAP=[null,14,26,42,62,84,106,122,152,180,213];
+  const ECW=[null,10,16,26,18,24,16,18,22,22,26];
+  const BLOCKS=[null,
+    [[1,16]],[[1,28]],[[1,44]],[[2,32]],[[2,43]],[[4,27]],[[4,31]],
+    [[2,38],[2,39]],[[3,36],[2,37]],[[4,43],[1,44]]];
+  const ALIGN=[null,[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50]];
+  const VERINFO={7:0x07C94,8:0x085BC,9:0x09A99,10:0x0A4D3};
+  const FORMAT_M=[0x5412,0x5125,0x5E7C,0x5B4B,0x45F9,0x40CE,0x4F97,0x4AA0];
+
+  const dedom=Array.from(new TextEncoder().encode(keimeno));
+  let ver=0;
+  for(let v=1;v<=10;v++) if(dedom.length<=CAP[v]){ ver=v; break; }
+  if(!ver) throw new Error('Πολύ μεγάλο κείμενο για κωδικό QR');
+
+  /* --- ροή δυαδικών --- */
+  const bits=[];
+  const push=(timi,plithos)=>{ for(let i=plithos-1;i>=0;i--) bits.push((timi>>i)&1); };
+  push(4,4);
+  push(dedom.length, ver<10?8:16);
+  dedom.forEach(b=>push(b,8));
+  const synolikaData=BLOCKS[ver].reduce((s,[n,d])=>s+n*d,0);
+  const maxBits=synolikaData*8;
+  for(let i=0;i<4&&bits.length<maxBits;i++) bits.push(0);
+  while(bits.length%8) bits.push(0);
+  const padByte=[0xEC,0x11]; let pi=0;
+  while(bits.length<maxBits){ push(padByte[pi++%2],8); }
+  const data=[];
+  for(let i=0;i<bits.length;i+=8){ let b=0; for(let j=0;j<8;j++) b=(b<<1)|bits[i+j]; data.push(b); }
+
+  /* --- Reed-Solomon --- */
+  function genPoly(n){
+    let g=[1];
+    for(let i=0;i<n;i++){
+      const neo=new Array(g.length+1).fill(0);
+      for(let j=0;j<g.length;j++){ neo[j]^=mul(g[j],1); neo[j+1]^=mul(g[j],EXP[i]); }
+      g=neo;
+    }
+    return g;
+  }
+  const g=genPoly(ECW[ver]);
+  function ec(mplok){
+    const res=new Array(ECW[ver]).fill(0);
+    mplok.forEach(b=>{
+      const factor=b^res[0];
+      res.shift(); res.push(0);
+      for(let i=0;i<g.length-1;i++) res[i]^=mul(g[i+1],factor);
+    });
+    return res;
+  }
+
+  const mplokData=[], mplokEc=[]; let thesi=0;
+  BLOCKS[ver].forEach(([n,d])=>{
+    for(let i=0;i<n;i++){ const b=data.slice(thesi,thesi+d); thesi+=d; mplokData.push(b); mplokEc.push(ec(b)); }
+  });
+  const teliko=[];
+  const megD=Math.max(...mplokData.map(b=>b.length));
+  for(let i=0;i<megD;i++) mplokData.forEach(b=>{ if(i<b.length) teliko.push(b[i]); });
+  for(let i=0;i<ECW[ver];i++) mplokEc.forEach(b=>teliko.push(b[i]));
+
+  /* --- πλέγμα --- */
+  const N=ver*4+17;
+  const m=Array.from({length:N},()=>new Array(N).fill(null));
+  const leit=Array.from({length:N},()=>new Array(N).fill(false));
+  const set=(r,c,v,f)=>{ m[r][c]=v; if(f) leit[r][c]=true; };
+
+  const finder=(r,c)=>{
+    for(let i=-1;i<=7;i++) for(let j=-1;j<=7;j++){
+      const rr=r+i, cc=c+j;
+      if(rr<0||cc<0||rr>=N||cc>=N) continue;
+      const mesa=(i>=0&&i<=6&&j>=0&&j<=6);
+      const mavro=mesa&&((i===0||i===6||j===0||j===6)||(i>=2&&i<=4&&j>=2&&j<=4));
+      set(rr,cc,mavro?1:0,true);
+    }
+  };
+  finder(0,0); finder(0,N-7); finder(N-7,0);
+
+  for(let i=8;i<N-8;i++){ set(6,i,i%2===0?1:0,true); set(i,6,i%2===0?1:0,true); }
+
+  ALIGN[ver].forEach(r=>ALIGN[ver].forEach(c=>{
+    if((r===6&&c===6)||(r===6&&c===N-7)||(r===N-7&&c===6)) return;
+    for(let i=-2;i<=2;i++) for(let j=-2;j<=2;j++){
+      const mavro=(Math.abs(i)===2||Math.abs(j)===2||(i===0&&j===0));
+      set(r+i,c+j,mavro?1:0,true);
+    }
+  }));
+
+  set(N-8,8,1,true);
+  for(let i=0;i<9;i++){ if(!leit[8][i]) set(8,i,0,true); if(!leit[i][8]) set(i,8,0,true); }
+  for(let i=0;i<8;i++){ if(!leit[8][N-1-i]) set(8,N-1-i,0,true); if(!leit[N-1-i][8]) set(N-1-i,8,0,true); }
+  if(ver>=7){
+    for(let i=0;i<18;i++){
+      const b=(VERINFO[ver]>>i)&1;
+      set(Math.floor(i/3), N-11+(i%3), b, true);
+      set(N-11+(i%3), Math.floor(i/3), b, true);
+    }
+  }
+
+  /* --- τοποθέτηση δεδομένων --- */
+  let dbits=[];
+  teliko.forEach(b=>{ for(let i=7;i>=0;i--) dbits.push((b>>i)&1); });
+  let idx=0, up=true;
+  for(let c=N-1;c>0;c-=2){
+    if(c===6) c--;
+    for(let k=0;k<N;k++){
+      const r=up?N-1-k:k;
+      for(let d=0;d<2;d++){
+        const cc=c-d;
+        if(leit[r][cc]) continue;
+        m[r][cc]= idx<dbits.length ? dbits[idx++] : 0;
+      }
+    }
+    up=!up;
+  }
+
+  /* --- μάσκες --- */
+  const maskes=[
+    (r,c)=>(r+c)%2===0, (r,c)=>r%2===0, (r,c)=>c%3===0, (r,c)=>(r+c)%3===0,
+    (r,c)=>(Math.floor(r/2)+Math.floor(c/3))%2===0, (r,c)=>((r*c)%2+(r*c)%3)===0,
+    (r,c)=>(((r*c)%2+(r*c)%3)%2)===0, (r,c)=>(((r+c)%2+(r*c)%3)%2)===0
+  ];
+  function poini(g){
+    let p=0;
+    for(let r=0;r<N;r++) for(let c=0;c<N;c++){
+      if(c<N-1&&r<N-1&&g[r][c]===g[r][c+1]&&g[r][c]===g[r+1][c]&&g[r][c]===g[r+1][c+1]) p+=3;
+    }
+    for(let r=0;r<N;r++){
+      let run=1;
+      for(let c=1;c<N;c++){ if(g[r][c]===g[r][c-1]) run++; else { if(run>=5) p+=3+(run-5); run=1; } }
+      if(run>=5) p+=3+(run-5);
+    }
+    for(let c=0;c<N;c++){
+      let run=1;
+      for(let r=1;r<N;r++){ if(g[r][c]===g[r-1][c]) run++; else { if(run>=5) p+=3+(run-5); run=1; } }
+      if(run>=5) p+=3+(run-5);
+    }
+    let mavra=0; g.forEach(r=>r.forEach(v=>{ if(v) mavra++; }));
+    p+=Math.floor(Math.abs(mavra*100/(N*N)-50)/5)*10;
+    return p;
+  }
+
+  let kalytero=null, kalyteriPoini=Infinity, kalyteriMaska=0;
+  for(let mk=0;mk<8;mk++){
+    const g=m.map(r=>r.slice());
+    for(let r=0;r<N;r++) for(let c=0;c<N;c++) if(!leit[r][c]&&maskes[mk](r,c)) g[r][c]^=1;
+    const fmt=FORMAT_M[mk];
+    for(let i=0;i<15;i++){
+      const b=(fmt>>i)&1;
+      if(i<6) g[8][i]=b; else if(i===6) g[8][7]=b; else if(i===7) g[8][8]=b;
+      else if(i===8) g[7][8]=b; else g[14-i][8]=b;
+      if(i<8) g[N-1-i][8]=b; else g[8][N-15+i]=b;
+    }
+    g[N-8][8]=1;
+    const pn=poini(g);
+    if(pn<kalyteriPoini){ kalyteriPoini=pn; kalytero=g; kalyteriMaska=mk; }
+  }
+  return {N, plegma:kalytero, ekdosi:ver, maska:kalyteriMaska};
+}
+
+function qrSvg(keimeno,pl){
+  try{
+    const r=qrModules(keimeno), q=4, meg=r.N+q*2;
+    let d='';
+    for(let i=0;i<r.N;i++) for(let j=0;j<r.N;j++)
+      if(r.plegma[i][j]) d+='M'+(j+q)+' '+(i+q)+'h1v1h-1z';
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${meg} ${meg}" width="${pl||260}" height="${pl||260}"
+      shape-rendering="crispEdges" style="background:#fff;border-radius:10px">
+      <rect width="${meg}" height="${meg}" fill="#fff"/><path d="${d}" fill="#000"/></svg>`;
+  }catch(err){ return '<div class="note">Ο σύνδεσμος είναι πολύ μεγάλος για κωδικό QR.</div>'; }
+}
+
+/* ================= Ζωγραφική ================= */
+function zografise(agkyra){
+  const y=window.scrollY;
+  valeThema();
+  el('app').innerHTML = othoni==='kalesmenos'?othoniKalesmenou():othoniDiaxeirisis();
+  syndese();
+  const mp=document.querySelector('.tabs');
+  if(mp){ const en=mp.querySelector('[aria-pressed="true"]'); if(en) mp.scrollLeft=Math.max(0,en.offsetLeft-14); }
+  if(agkyra==='panw'){ window.scrollTo({top:0}); return; }
+  if(typeof agkyra==='string'){
+    const st=el(agkyra);
+    if(st){ st.scrollIntoView({behavior:'smooth',block:'start'}); return; }
+  }
+  window.scrollTo({top:y});
+}
+function xartisMesa(gymnos){
+  const e=DB.ekdilosi;
+  if(!exeiPineza()) return '';
+  const d=0.0045, bbox=[e.mik-d,e.plat-d/2,e.mik+d,e.plat+d/2].join(',');
+  const src='https://www.openstreetmap.org/export/embed.html?bbox='+bbox+'&layer=mapnik&marker='+e.plat+','+e.mik;
+  const fr=`<iframe src="${src}" loading="lazy" title="Χάρτης"></iframe>`;
+  return gymnos?fr:`<div class="mapbox">${fr}</div>`;
+}
+function kartaProsklisis(){
+  const e=DB.ekdilosi, pro=htmlProthesmias(), th=themaTora();
+  return `<div class="invite ${e.plaisio?'pl-'+e.plaisio:''}" style="${fontoStyl()}">
+    <div class="eyebrow">${th.eik} ${e.diorganotis?esc(fraseiDiorganoti()):'Είσαι καλεσμένος'}</div>
+    <h1>${esc(e.titlos||'Η εκδήλωσή μας')}</h1>
+    <div class="when"><span class="big">${grafiImerominia(e.imerominia)}</span><span>στις ${esc(e.ora)}</span></div>
+    ${e.topos?`<div class="place">${esc(e.topos)}</div>`:''}
+    ${e.dieuthinsi?`<div class="dief">📍 ${esc(e.dieuthinsi)}</div>`
+      :(exeiPineza()?`<div class="dief">📍 Σημειωμένο στον χάρτη</div>`:'')}
+    ${e.orofos?`<div class="dief" style="margin-top:4px;opacity:.9">${/όροφ|ισόγ|κουδούν|διαμέρ/i.test(e.orofos)?esc(e.orofos):'Όροφος: '+esc(e.orofos)}</div>`:''}
+    ${e.synantisi?`<div class="place">Βρισκόμαστε: ${esc(e.synantisi)}</div>`:''}
+    ${e.parking?`<div class="place">Πάρκινγκ: ${esc(e.parking)}</div>`:''}
+    ${xartisMesa()}
+    ${syndesmosXarti()?`<a class="xartis" href="${syndesmosXarti()}" target="_blank" rel="noopener">🗺️ Δείξε μου τον δρόμο</a>`:''}
+    ${(e.minima||(MINYMATA[e.thema]||MINYMATA.parti)[0])?`<div class="msg">${esc(e.minima||(MINYMATA[e.thema]||MINYMATA.parti)[0])}</div>`:''}
+    ${metritisSymmetoxon()}
+    ${kleidomeno()?'':`<div class="protropi">Δύο λεπτά μόνο: συμπλήρωσε πιο κάτω αν θα έρθεις και τι θα φας, για να τα υπολογίσουμε σωστά.</div>`}
+    <div class="deadline" id="antistrofi" ${pro?'':'style="display:none"'}>${pro}</div>
+  </div>`;
+}
+function fraseiDiorganoti(){
+  const e=DB.ekdilosi;
+  if(!e.diorganotis) return '';
+  const a=(e.arthro===undefined?'ο':e.arthro);
+  const rima=(a==='οι')?'Σε προσκαλούν':'Σε προσκαλεί';
+  return rima+' '+(a?a+' ':'')+e.diorganotis;
+}
+const mesaSeProepiskopisi = (()=>{ try{ return window.self!==window.top; }catch(e){ return true; } })();
+function keimenoSyndesmou(){
+  const d=(DB.ekdilosi.dimosios||'').trim();
+  if(d) return d;
+  return location.href.split('#')[0];
+}
+function elegxosSyndesmou(){
+  const u=keimenoSyndesmou();
+  if(/^https?:\/\//i.test(u) && !mesaSeProepiskopisi)
+    return {ok:true, minima:'Ο σύνδεσμος είναι η κανονική διεύθυνση της σελίδας σου. Ανοίγει σε οποιονδήποτε.'};
+  if(/\/chat\/|\/chats\/|\/new|\/project/i.test(u))
+    return {ok:false, minima:'Αυτή είναι η διεύθυνση της συνομιλίας σου, όχι της πρόσκλησης. Ο παραλήπτης θα βρει οθόνη εισόδου. Χρειάζεσαι τη δημοσιευμένη διεύθυνση.'};
+  if(/^blob:|^data:|sandbox|localhost|127\.0\.0\.1/i.test(u))
+    return {ok:false, minima:'Αυτή είναι εσωτερική διεύθυνση της προεπισκόπησης και δεν ανοίγει σε άλλη συσκευή.'};
+  if(mesaSeProepiskopisi && !(DB.ekdilosi.dimosios||'').trim())
+    return {ok:false, minima:'Τρέχεις μέσα στην προεπισκόπηση. Δημοσίευσε την πρόσκληση και επικόλλησε εδώ τη δημόσια διεύθυνση.'};
+  return {ok:true, minima:'Ο σύνδεσμος δείχνει σωστός. Δοκίμασέ τον σε κινητό χωρίς σύνδεση στον λογαριασμό σου, ή σε ανώνυμο παράθυρο, πριν τον στείλεις σε όλους.'};
+}
+function syndesmosEtoimos(){ return elegxosSyndesmou().ok; }
+function keimenoProsklisis(){
+  const e=DB.ekdilosi;
+  return e.titlos+' — '+grafiImerominia(e.imerominia)+' στις '+e.ora+(e.topos?', '+e.topos:'')
+    +(e.diorganotis?'\n'+fraseiDiorganoti():'')
+    +'\nΠες μου αν θα έρθεις εδώ: '+keimenoSyndesmou();
+}
+function tameioDorou(meDiko){
+  const syn=parseFloat(DB.ekdilosi.doroSynolo)||0;
+  const alloi=DB.apantiseis.filter(a=>a.doro==='koino'&&(!meDiko||a.id!==EGO));
+  let mazemena=alloi.reduce((x,a)=>x+(parseFloat(a.posoDorou)||0),0);
+  let atoma=alloi.length;
+  if(meDiko&&p.doro==='koino'){ mazemena+=parseFloat(p.posoDorou)||0; atoma++; }
+  return {syn, mazemena, ypoloipo:Math.max(0,syn-mazemena), atoma};
+}
+function anoixeProepis(){
+  if(el('proepiskopisi')) return;
+  const d=document.createElement('div');
+  d.id='proepiskopisi'; d.className='proepis-kalymma';
+  d.innerHTML='<div class="proepis-mesa">'+kartaProsklisis()+'<div class="proepis-lez">Άσε το δάχτυλό σου για να κλείσει</div></div>';
+  document.body.appendChild(d);
+}
+function kleiseProepis(){ const d=el('proepiskopisi'); if(d) d.remove(); }
+if(!window.__proepisEtoimo){
+  window.__proepisEtoimo=true;
+  ['touchend','touchcancel','mouseup'].forEach(t=>document.addEventListener(t,kleiseProepis));
+}
+function metritisSymmetoxon(){
+  if(!DB.ekdilosi.deixePlithos) return '';
+  const n=plithos(false);
+  if(!n.synolo) return '';
+  const isos=plithos(true).synolo-n.synolo;
+  const meri=[];
+  if(n.enilikes) meri.push(n.enilikes+(n.enilikes===1?' ενήλικας':' ενήλικες'));
+  if(n.paidia) meri.push(n.paidia+(n.paidia===1?' παιδί':' παιδιά'));
+  if(n.vrefi) meri.push(n.vrefi+(n.vrefi===1?' βρέφος':' βρέφη'));
+  return `<div class="metritis">Μέχρι τώρα έρχονται <b>${n.synolo}</b>
+    <div style="font-size:14px;margin-top:3px;opacity:.92">${meri.join(' · ')}${isos?` · ${isos} ακόμη «ίσως»`:''}</div></div>`;
+}
+function kartaImerologiou(){
+  return `<div class="card"><h3>Βάλ᾽ το στο ημερολόγιό σου</h3>
+    <button class="btn" id="ics">📅 Βάλ᾽ το στο ημερολόγιό μου</button>
+    <div class="note">Σε iPhone ανοίγει κατευθείαν το ημερολόγιο. Σε Android κατεβαίνει ένα μικρό αρχείο — πάτησέ το από τις λήψεις και μπαίνει με ένα άγγιγμα. Θα χτυπήσει υπενθύμιση μία μέρα πριν και δύο ώρες πριν.</div>
+    <p style="margin-top:14px;text-align:center">
+      <a href="${syndesmosGoogle()}" target="_blank" rel="noopener" style="color:var(--blue);font-size:14px">
+        Ή άνοιξέ το στο Ημερολόγιο Google — βολεύει πιο πολύ από υπολογιστή</a>
+      <br><button class="foot-l" id="icsArx" style="margin-top:8px">κατέβασε το αρχείο ξεχωριστά</button></p></div>`;
+}
+
+function othoniKalesmenou(){
+  if(kleidomeno()) return kartaProsklisis()+kleidomeniKarta()+kartaImerologiou()
+    +`<div class="foot"><button id="proxDiax">Είμαι ο διοργανωτής</button></div>`;
+  const e=DB.ekdilosi;
+  const chips=(lista,klidi)=>lista.map(it=>
+    `<button class="chip" data-omada="${klidi}" data-id="${it.id}" aria-pressed="${p[klidi].includes(it.id)}">${it.eik} ${esc(it.onoma)}</button>`).join('');
+
+  const fernoun=DB.apantiseis.filter(a=>keimenoFernei(a)&&a.apantisi!=='oxi'&&a.id!==EGO)
+    .map(a=>esc(a.onoma)+': '+esc(keimenoFernei(a))).join(' · ');
+
+  const meros = p.apantisi==='oxi'||!p.apantisi ? '' : `
+    <hr>
+    <h3 id="meros">Πόσοι θα έρθετε</h3>
+    <div class="trio">
+      <div><label for="en">Ενήλικες</label>${arithmoPedio('en',p.enilikes,0,30)}</div>
+      <div><label for="pa">Παιδιά</label>${arithmoPedio('pa',p.paidia,0,20)}</div>
+      <div><label for="vr">Βρέφη</label>${arithmoPedio('vr',p.vrefi,0,10)}</div>
+    </div>
+    <label>Ονόματα όσων έρχονται μαζί σου</label>
+    <div id="onomataL">${grammesOnomaton()}</div>
+    <div class="note">Γράψε ένα όνομα και ανοίγει μόνη της η επόμενη γραμμή.</div>
+
+    <hr>
+    ${enotitaEpilogon('pota','πιείτε','πιούμε','πιεις')}
+    ${enotitaEpilogon('fagita','φάτε','φάμε','φας')}
+    <button class="opt" data-parath="diatrofi" style="margin-top:16px" aria-pressed="${(p.diatrofi.length||p.alergies)?'true':'false'}">
+      🥦 Διατροφή και αλλεργίες
+      <br><span style="font-size:13px;opacity:.85">${p.diatrofi.length||p.alergies
+        ? esc([...p.diatrofi.map(i=>(DIATROFI.find(d=>d.id===i)||{}).onoma||''),p.alergies].filter(Boolean).join(' · '))
+        : 'Πάτησέ το αν έχεις κάτι να μας πεις'}</span></button>
+
+    ${e.zitaFerno?`<button class="opt" data-parath="ferno" style="margin-top:12px" aria-pressed="${p.ferno.length?'true':'false'}">
+      🎒 Θα φέρεις κάτι;
+      <br><span style="font-size:13px;opacity:.85">${p.ferno.filter(f=>f.ti).length
+        ? esc(p.ferno.filter(f=>f.ti).map(f=>fersimoOnoma(f.kat)+': '+f.ti).join(' · '))
+        : 'Προαιρετικό — πάτησέ το αν θέλεις να φέρεις'}</span></button>`:''}
+
+    ${e.dora!=='kanena'?`<hr><h3>Δώρο</h3>
+      ${e.dora==='koino'?`<div class="tameio" style="margin-bottom:4px">🎁 ${e.doroTi?esc(e.doroTi):'Κοινό δώρο'}
+        ${(()=>{const t=tameioDorou(true); return t.syn?`<div style="font-size:15px;font-weight:400;margin-top:6px">Στόχος ${t.syn} ευρώ · εκκρεμούν <b>${t.ypoloipo}</b></div>`:'';})()}
+        ${e.doroPoso?`<div style="font-size:14px;font-weight:400;margin-top:4px">Προτεινόμενη συμμετοχή: ${esc(e.doroPoso)}</div>`:''}
+        ${e.doraSimeiosi?`<div style="font-size:14px;font-weight:400;margin-top:4px">${esc(e.doraSimeiosi)}</div>`:''}</div>`
+        :(e.doraSimeiosi?`<div class="note">${esc(e.doraSimeiosi)}</div>`:'')}
+      <div class="optlist">
+        ${[['koino','🎁 Μπαίνω στο κοινό δώρο'],['atomiko','🎀 Θα φέρω δικό μου'],['kanena','💭 Θα το σκεφτώ']]
+          .filter(x=>e.dora==='koino'||x[0]!=='koino')
+          .map(x=>`<button class="opt" data-mono="doro" data-timi="${x[0]}" aria-pressed="${p.doro===x[0]}">${x[1]}</button>
+          ${p.doro===x[0]&&x[0]==='kanena'?`<div class="opt-extra" style="font-size:14px">Καμία πίεση — δεν χρειάζεται να δηλώσεις τίποτα τώρα. Αν αλλάξεις γνώμη, μπες ξανά και άλλαξέ το.</div>`:''}
+          ${p.doro===x[0]&&x[0]==='koino'?`<div class="opt-extra">
+            ${e.doroTi?'Μπαίνεις στο κοινό δώρο: '+esc(e.doroTi)+'.':'Μπαίνεις στο κοινό δώρο.'}${e.doroPoso?' Προτεινόμενο: '+esc(e.doroPoso)+'.':''}
+            <label for="posoDorou">Πόσα βάζεις;</label>
+            <input type="number" id="posoDorou" min="0" step="5" value="${p.posoDorou||''}" placeholder="Μόνο εσύ το ξέρεις">
+            <div class="note">Το ποσό σου δεν το βλέπει κανείς, ούτε ο διοργανωτής. Αφαιρείται μόνο από το σύνολο.</div>
+            ${(()=>{const t=tameioDorou(true); return t.syn?`<div class="tameio">Από τα ${t.syn} ευρώ, εκκρεμούν ακόμη <b>${t.ypoloipo} ευρώ</b>
+              <div style="font-size:13px;font-weight:400;margin-top:4px">Συμμετέχουν ${t.atoma} ${t.atoma===1?'άτομο':'άτομα'}</div></div>`:'';})()}</div>`:''}`).join('')}
+      </div>`:''}
+
+    ${e.zitaMetakinisi?`<hr><h3>Πώς θα έρθεις</h3>
+      <div class="optlist">${METAKINISI.map(m=>`
+        <button class="opt" data-mono="metakinisi" data-timi="${m.id}" aria-pressed="${p.metakinisi===m.id}">${m.eik} ${m.onoma}</button>
+        ${p.metakinisi===m.id&&m.id==='m_auto'?`<div class="opt-extra">
+          <label for="theseis">Μπορείς να πάρεις κάποιον μαζί σου; Πόσους;</label>
+          ${arithmoPedio('theseis',p.theseis,0,p.leoforeio?16:p.vanaki?9:5)}
+          ${p.theseis>4&&!p.vanaki?`<div class="note" style="margin-top:10px">Πάνω από τέσσερις; Έχεις βανάκι ή απλώς αισιοδοξείς;
+            <div class="row" style="margin-top:10px">
+              <button class="btn ghost mini" id="oxiVan" style="width:100%">Έχεις δίκιο, τέσσερις</button>
+              <button class="btn ghost mini" id="naiVan" style="width:100%">Ναι, έχω βανάκι</button>
+            </div></div>`:''}
+          ${p.vanaki&&p.theseis>8&&!p.leoforeio?`<div class="note" style="margin-top:10px">Πάνω από οκτώ πια δεν είναι βανάκι. Λεωφορείο έχεις;
+            <div class="row" style="margin-top:10px">
+              <button class="btn ghost mini" id="oxiLeo" style="width:100%">Όχι, οκτώ</button>
+              <button class="btn ghost mini" id="naiLeo" style="width:100%">Ναι, λεωφορείο</button>
+            </div></div>`:''}
+          ${p.leoforeio?`<div class="note" style="margin-top:10px">${p.theseis>=16?'Δεκαέξι. Σταματάω εδώ, γιατί μετά θέλει και εισιτήρια.':'Λεωφορείο, ώστε. Μέχρι δεκαέξι σου επιτρέπω.'}</div>`
+            :p.vanaki&&p.theseis>4?`<div class="note" style="margin-top:10px">Βανάκι, ώστε. Μέχρι οκτώ θέσεις.</div>`:''}</div>`:''}
+        ${p.metakinisi===m.id&&m.id==='m_synod'?`<div class="opt-extra">Ο διοργανωτής θα σε βάλει σε κάποιο αυτοκίνητο.</div>`:''}`).join('')}</div>`:''}
+
+    <hr>
+    <label for="simeiosi">Κάτι άλλο που πρέπει να ξέρει ο διοργανωτής;</label>
+    <textarea id="simeiosi" placeholder="Προαιρετικό">${esc(p.simeiosi)}</textarea>`;
+
+  return kartaProsklisis()
+    +`<div class="card">
+      <h2>Η απάντησή σου</h2>
+      <label for="onoma">Πώς σε λένε;</label>
+      <input type="text" id="onoma" value="${esc(p.onoma)}" placeholder="Όνομα και επώνυμο">
+      <div class="note">Αν υπάρχει κι άλλος με το ίδιο όνομα, πρόσθεσε κάτι που σε ξεχωρίζει.</div>
+      <label>Θα έρθεις;</label>
+      <div class="choices">
+        <div class="choice" data-apantisi="nai" role="button" tabindex="0" aria-pressed="${p.apantisi==='nai'}"><span class="ic">✅</span>Θα έρθω</div>
+        <div class="choice" data-apantisi="isos" role="button" tabindex="0" aria-pressed="${p.apantisi==='isos'}"><span class="ic">🤔</span>Ίσως</div>
+        <div class="choice" data-apantisi="oxi" role="button" tabindex="0" aria-pressed="${p.apantisi==='oxi'}"><span class="ic">❌</span>Δεν μπορώ</div>
+      </div>
+      ${meros}
+      <button class="btn" id="steile">${EGO?'Άλλαξε την απάντησή μου':'Στείλε την απάντησή μου'}</button>
+      ${minimaOk?`<div class="ok">${esc(minimaOk)}</div>`:''}
+    </div>
+    ${EGO&&p.apantisi!=='oxi'?kartaImerologiou():''}
+    ${parathyroKalesmenou()}
+    <div class="foot"><button id="proxDiax">Είμαι ο διοργανωτής</button></div>`;
+}
+
+function pedioEpilogis(id,etiketa,timi,epiloges,ypodeigma){
+  const mesa=epiloges.includes(timi);
+  const alloAnoixto = !!timi && !mesa;
+  return `<label for="${id}_ep">${etiketa}</label>
+    <select id="${id}_ep">
+      <option value="">— Διάλεξε —</option>
+      ${epiloges.map(x=>`<option value="${esc(x)}" ${timi===x?'selected':''}>${esc(x)}</option>`).join('')}
+      <option value="__allo" ${alloAnoixto?'selected':''}>✏️ Γράψε το δικό σου</option>
+    </select>
+    <input type="text" id="${id}" value="${esc(timi||'')}" placeholder="${esc(ypodeigma||'')}"
+      style="margin-top:8px;${alloAnoixto?'':'display:none'}">`;
+}
+function arithmoPedio(id,timi,min,max){
+  return `<div class="num"><input type="number" id="${id}" min="${min}" max="${max}" value="${timi}">
+    <div class="nbtns"><button class="nb" data-vima="1" data-pedio="${id}">▲</button>
+    <button class="nb" data-vima="-1" data-pedio="${id}">▼</button></div></div>`;
+}
+function enotitaEpilogon(klidi,rima,mazi,esy){
+  const lista=DB[klidi], prosf=lista.filter(x=>x.prosf), ola=klidi==='pota'?OLA_POTA():OLA_FAGITA();
+  const elef=`<div style="margin-top:12px">
+    <label for="elef_${klidi}" style="font-size:13px;margin:0 0 5px">Θέλεις κάτι διαφορετικό; Γράψ᾽ το εδώ.</label>
+    <input type="text" id="elef_${klidi}" value="${esc(p['elef_'+klidi]||'')}" placeholder="Προαιρετικό"
+      style="font-size:14px;padding:10px 12px;background:var(--soft)"></div>`;
+  if(!lista.length){
+    return `<h3>Τι θα ήθελες να ${esy};</h3>
+      <div class="note">Δεν έχει οριστεί κατάλογος — γράψε ό,τι θα σου άρεσε.</div>
+      <input type="text" id="elef_${klidi}" value="${esc(p['elef_'+klidi]||'')}" placeholder="Γράψε ελεύθερα" style="margin-top:10px">`;
+  }
+  if(prosf.length){
+    return `<h3>Τι θα ${mazi}</h3>
+      <div class="note" style="font-size:16px;line-height:1.7">${prosf.map(m=>m.eik+' '+esc(m.onoma)).join('<br>')}
+        <div style="font-size:13px;margin-top:8px;opacity:.8">Αυτά θα υπάρχουν για όλους.</div></div>
+      ${elef}`;
+  }
+  return `<h3>Τι θα προτιμούσατε να ${rima}</h3>
+    <div class="chips">${ola.map(it=>`<button class="chip" data-omada="${klidi}" data-id="${it.id}" aria-pressed="${p[klidi].includes(it.id)}">${it.eik} ${esc(it.onoma)}</button>`).join('')}</div>
+    ${elef}`;
+}
+function grammesOnomaton(){
+  const l=(p.onomata||[]).filter(x=>x!==undefined);
+  const oles=l.length?l.slice():[];
+  if(!oles.length||oles[oles.length-1].trim()!=='') oles.push('');
+  return oles.map((v,i)=>`<div class="onoma-row"><input type="text" class="onoma-k" value="${esc(v)}" placeholder="${i===0?'Όνομα και επώνυμο':'Άλλο ένα όνομα'}"></div>`).join('');
+}
+
+function parathyroKalesmenou(){
+  if(anoixtoParathyro==='diatrofi'){
+    return `<div class="kalymma"><div class="parathyro">
+      <h3>Διατροφή και αλλεργίες</h3>
+      <div class="note">Πες μας αν χρειάζεσαι κάτι ξεχωριστό, για να υπολογίσουμε μερίδες που να σου κάνουν. Αν τρως τα πάντα, άφησέ το κενό.</div>
+      <div class="chips">${DIATROFI.map(it=>`<button class="chip" data-omada="diatrofi" data-id="${it.id}" aria-pressed="${p.diatrofi.includes(it.id)}">${it.eik} ${esc(it.onoma)}</button>`).join('')}</div>
+      <label for="alergies">Αλλεργίες ή κάτι που δεν τρως</label>
+      <input type="text" id="alergies" value="${esc(p.alergies)}" placeholder="π.χ. ξηροί καρποί, θαλασσινά">
+      <div class="note">Ό,τι γράψεις εδώ το βλέπει μόνο ο διοργανωτής, με προειδοποίηση δίπλα στο όνομά σου.</div>
+      <button class="btn" id="kleiseParath">Έτοιμο</button>
+    </div></div>`;
+  }
+  if(anoixtoParathyro==='ferno'){
+    const alloi=DB.apantiseis.filter(a=>keimenoFernei(a)&&a.apantisi!=='oxi'&&a.id!==EGO)
+      .map(a=>esc(a.onoma)+': '+esc(keimenoFernei(a))).join(' · ');
+    return `<div class="kalymma"><div class="parathyro">
+      <h3>Θα φέρεις κάτι;</h3>
+      <div class="note">Καθαρά προαιρετικό. Διάλεξε κατηγορίες και γράψε τι ακριβώς, ώστε να μην έρθουν πέντε ίδια πράγματα.</div>
+      ${alloi?`<div class="note">Ήδη φέρνουν — ${alloi}</div>`:''}
+      <div class="chips">${FERSIMO.map(f=>`<button class="chip" data-fers="${f.id}" aria-pressed="${p.ferno.some(x=>x.kat===f.id)}">${f.eik} ${esc(f.onoma)}</button>`).join('')}</div>
+      ${p.ferno.map(f=>`<div class="opt-extra" style="margin-top:10px">
+        <label>${fersimoEik(f.kat)} ${esc(fersimoOnoma(f.kat))} — τι ακριβώς;</label>
+        <input type="text" class="fers-ti" data-kat="${f.kat}" value="${esc(f.ti)}" placeholder="π.χ. τυρόπιτα για 10 άτομα"></div>`).join('')}
+      <button class="btn" id="kleiseParath">Έτοιμο</button>
+    </div></div>`;
+  }
+  return '';
+}
+function kleidomeniKarta(){
+  const d=EGO?DB.apantiseis.find(a=>a.id===EGO):null;
+  const on=(l,ids)=>(ids||[]).map(i=>{const t=l.concat(ADIAFORO).find(x=>x.id===i);return t?t.eik+' '+t.onoma:'';}).filter(Boolean).join(', ');
+  if(!d) return `<div class="card"><h2>Οι δηλώσεις έκλεισαν</h2>
+    <p>Δεν προλαβαίνεις να απαντήσεις εδώ. Πάρε τηλέφωνο τον διοργανωτή αν θέλεις να έρθεις.</p></div>`;
+  return `<div class="card"><h2>Οι δηλώσεις έκλεισαν</h2><p>Η απάντηση που έχεις δώσει:</p>
+    <div class="stat"><span>Απάντηση</span><b>${d.apantisi==='nai'?'Έρχομαι':d.apantisi==='oxi'?'Δεν έρχομαι':'Ίσως'}</b></div>
+    ${d.apantisi!=='oxi'?`<div class="stat"><span>Άτομα</span><b>${d.enilikes+d.paidia+d.vrefi}</b></div>`:''}
+    ${on(DB.pota,d.pota)?`<div class="stat"><span>Ποτό</span><span>${esc(on(DB.pota,d.pota))}</span></div>`:''}
+    ${on(DB.fagita,d.fagita)?`<div class="stat"><span>Φαγητό</span><span>${esc(on(DB.fagita,d.fagita))}</span></div>`:''}
+    ${keimenoFernei(d)?`<div class="stat"><span>Φέρνεις</span><span>${esc(keimenoFernei(d))}</span></div>`:''}</div>`;
+}
+
+/* ================= Διοργανωτής ================= */
+function othoniDiaxeirisis(){
+  if(!xekleidoto) return `<div class="card"><h2>Πίνακας διοργανωτή</h2>
+    <p><small>Βάλε τον κωδικό σου.</small></p>
+    <label for="kodikos">Κωδικός</label><input type="text" id="kodikos" inputmode="numeric" placeholder="••••">
+    <button class="btn" id="mpes">Άνοιξε τον πίνακα</button>
+    ${minimaOk?`<div class="ok">${esc(minimaOk)}</div>`:''}
+    <div class="foot"><button id="pisoKal">Πίσω στην πρόσκληση</button></div></div>`;
+  const t=[['ekdilosi','Εκδήλωση'],['menou','Κατάλογος'],['emfanisi','Εμφάνιση'],['apantiseis','Απαντήσεις'],['synola','Σύνολα'],['agores','Αγορές']];
+  return `<h2 style="margin-top:6px">Πίνακας διοργανωτή</h2>
+    <div class="tabs">${t.map(([k,o])=>`<button class="tab" data-karteta="${k}" aria-pressed="${karteta===k}">${o}</button>`).join('')}</div>
+    ${({ekdilosi:kartaEkdilosis,emfanisi:kartaEmfanisis,menou:kartaMenou,apantiseis:kartaApantiseon,synola:kartaSynolon,agores:kartaAgoron})[karteta]()}
+    <button class="btn ghost" id="pisoKal" style="margin-top:22px">👁️ Δες την πρόσκληση όπως τη βλέπουν οι καλεσμένοι</button>`;
+}
+
+function kartaEmfanisis(){
+  const e=DB.ekdilosi;
+  return `  <div class="card">
+    <h3>Τι οργανώνεις</h3>
+    <p><small>Αλλάζει τα χρώματα και το ύφος της πρόσκλησης.</small></p>
+    <div class="chips">${THEMATA.map(t=>`<button class="chip" data-thema="${t.id}" aria-pressed="${e.thema===t.id}">${t.eik} ${esc(t.onoma)}</button>`).join('')}</div>
+    ${e.thema==='allo'?`<div class="opt-extra" style="margin-top:10px">
+      <label for="e_alloOn">Πώς το λες;</label>
+      <input type="text" id="e_alloOn" value="${esc(e.alloOnoma)}" placeholder="π.χ. Αποκριάτικο γλέντι">
+      <label for="e_alloEik">Εικονίδιο</label>
+      <input type="text" id="e_alloEik" value="${esc(e.alloEik)}" maxlength="2" placeholder="🎭"></div>`:''}
+  </div>
+  <div class="card">
+    <h3>Φόντο πρόσκλησης</h3>
+    <div class="chips">${FONTA.map(f=>`<button class="chip" data-fonto="${f.id}" aria-pressed="${!e.fotoFonto&&e.fonto===f.id}">${esc(f.onoma)}</button>`).join('')}</div>
+    <label for="e_foto">Δική σου φωτογραφία</label>
+    <input type="file" id="e_foto" accept="image/*">
+    <div id="fotoMin">${minimaFoto?`<div class="ok">${esc(minimaFoto)}</div>`:''}</div>
+    <label for="e_entasi">Ένταση φόντου — ${e.entasi===undefined?100:e.entasi}%</label>
+    <input type="range" id="e_entasi" min="10" max="100" step="5" value="${e.entasi===undefined?100:e.entasi}" style="padding:0">
+    <button class="btn ghost" id="proepis">👁️ Κράτα πατημένο για προεπισκόπηση</button>
+    <label>Χρώμα σελίδας</label>
+    <div class="chips">${XROMATA.map(x=>`<button class="chip" data-xroma="${x.id}" aria-pressed="${(e.selidaXroma||'menta')===x.id}">${esc(x.onoma)}</button>`).join('')}</div>
+    <label>Πλαίσιο</label>
+    <div class="chips">${PLAISIA.map(x=>`<button class="chip" data-plaisio="${x.id}" aria-pressed="${e.plaisio===x.id}">${esc(x.onoma)}</button>`).join('')}</div>
+    ${e.fotoFonto?`<div class="mapbox" style="height:120px;border-color:var(--line);background-image:url(${e.fotoFonto});background-size:cover;background-position:center"></div>
+      <button class="btn ghost" id="sviseFoto" style="border-color:var(--red);color:var(--red)">Αφαίρεσε τη φωτογραφία</button>`
+      :`<p><small>Η φωτογραφία σκουραίνει αυτόματα για να διαβάζονται τα γράμματα.</small></p>`}
+  </div>`;
+}
+
+function kartaEkdilosis(){
+  const e=DB.ekdilosi;
+  return `<div class="card">
+    <div class="note" style="margin-top:0;border-left:4px solid ${katastasiSyndesis==='syndedemeno'?'var(--green)':katastasiSyndesis==='topika'?'var(--gold)':'var(--red)'};padding-left:12px">
+      ${katastasiSyndesis==='syndedemeno'?'🟢 Συνδεδεμένο με το φύλλο σου — οι απαντήσεις μαζεύονται εκεί.'
+        :katastasiSyndesis==='topika'?'🟡 Δεν έχει οριστεί φύλλο. Οι απαντήσεις μένουν μόνο σε αυτή τη συσκευή. Άνοιξε το αρχείο και συμπλήρωσε τη διεύθυνση του σεναρίου.'
+        :'🔴 Το φύλλο δεν απαντά. Έλεγξε τη διεύθυνση και τα δικαιώματα του σεναρίου.'}</div>
+    <h3>Στείλε την πρόσκληση</h3>
+    <p><small>Ο ίδιος σύνδεσμος ανοίγει σε κάθε κινητό, χωρίς εγκατάσταση.</small></p>
+    <button class="btn" id="anoixeApost">📤 Στείλε την πρόσκληση</button>
+    <button class="btn ghost" id="moirasou">📋 Αντίγραψέ την</button>
+    <button class="btn ghost" id="anoixeQr">📱 Κωδικός QR</button>
+    ${minimaOk?`<div class="ok">${esc(minimaOk)}</div>`:''}
+    <label for="e_dimosios">Ο σύνδεσμος που θα λάβουν</label>
+    <input type="text" id="e_dimosios" value="${esc(e.dimosios||'')}" placeholder="Επικόλλησε εδώ τον δημόσιο σύνδεσμο">
+    <div class="note" style="border-left:4px solid ${syndesmosEtoimos()?'var(--green)':'var(--gold)'};padding-left:12px">
+      ${(()=>{const x=elegxosSyndesmou(); return (x.ok?'✅ ':'⚠️ ')+esc(x.minima);})()}</div>
+    <div class="note">Ο σωστός έλεγχος: άνοιξε τον σύνδεσμο σε ανώνυμο παράθυρο ή σε κινητό που δεν είναι συνδεδεμένο στον λογαριασμό σου. Αν ανοίξει εκεί, θα ανοίξει σε όλους.</div>
+    <div class="synd">${esc(keimenoSyndesmou())}</div>
+    ${anoixtoQr?`<div class="kalymma">
+      <div class="parathyro" style="text-align:center">
+        <h3>Σκάναρέ με</h3>
+        <div style="display:flex;justify-content:center;margin:14px 0">${qrSvg(keimenoSyndesmou(),250)}</div>
+        <div class="note" style="text-align:left">Δείξ᾽ τον από την οθόνη σου ή τύπωσέ τον. Όποιος τον σκανάρει με την κάμερα, ανοίγει κατευθείαν την πρόσκληση.
+          ${syndesmosEtoimos()?'':'<br><br>⚠️ Δεν έχεις βάλει ακόμη δημόσιο σύνδεσμο, οπότε ο κωδικός δείχνει την εσωτερική διεύθυνση και δεν θα ανοίξει σε ξένο κινητό.'}</div>
+        <div class="synd" style="text-align:left">${esc(keimenoSyndesmou())}</div>
+        <button class="btn ghost" id="katevQr">⬇️ Κατέβασε την εικόνα</button>
+        <button class="btn" id="kleiseQr">Κλείσιμο</button>
+      </div></div>`:''}
+    ${anoixtiApostoli?`<div class="kalymma" id="kalymmaApost">
+      <div class="parathyro">
+        <h3>Πού να τη στείλω;</h3>
+        <button class="btn" id="antigrafiMesa">📋 Αντίγραψε την πρόσκληση</button>
+        <div class="note">Το σιγουρότερο: αντίγραψέ την και επικόλλησέ την σε όποια συνομιλία θέλεις.</div>
+        <div class="duo">
+          <button class="duo-k" data-stelno="viber://forward?text=${encodeURIComponent(keimenoProsklisis())}" type="button">Viber</button>
+          <button class="duo-k" data-stelno="https://wa.me/?text=${encodeURIComponent(keimenoProsklisis())}" type="button">WhatsApp</button>
+          <button class="duo-k" data-stelno="https://t.me/share/url?url=${encodeURIComponent(keimenoSyndesmou())}&text=${encodeURIComponent(keimenoProsklisis())}" type="button">Telegram</button>
+          <button class="duo-k" data-stelno="sms:?&body=${encodeURIComponent(keimenoProsklisis())}" type="button">💬 Μήνυμα</button>
+          <button class="duo-k" data-stelno="mailto:?subject=${encodeURIComponent(e.titlos)}&body=${encodeURIComponent(keimenoProsklisis())}" type="button">✉️ Ταχυδρομείο</button>
+          <button class="duo-k" id="koinopoiise" type="button">📤 Όλες οι εφαρμογές</button>
+        </div>
+        ${minimaApost?`<div class="ok">${esc(minimaApost)}</div>`:''}
+        <button class="btn ghost" id="kleiseApost">Κλείσιμο</button>
+      </div></div>`:''}
+  </div>
+  <div class="card">
+    <h3>Πότε γίνεται</h3>
+    <div class="row">
+      <div><label for="e_imer">Ημερομηνία</label><input type="date" id="e_imer" value="${e.imerominia}"></div>
+      <div><label for="e_ora">Ώρα</label><input type="time" id="e_ora" value="${e.ora}"></div>
+    </div>
+    <label for="e_diark">Πόσες ώρες κρατάει</label>
+    <select id="e_diark">${[1,2,3,4,5,6,12,24].map(w=>`<option value="${w}" ${(+e.diarkeia===w)?'selected':''}>${w} ${w===1?'ώρα':'ώρες'}</option>`).join('')}</select>
+  </div>
+  <div class="card">
+    <label for="e_diorg">Ποιος προσκαλεί</label>
+    <div class="row">
+      <select id="e_arthro" style="flex:0 0 42%">
+        ${[['ο','ο'],['η','η'],['οι','οι'],['η οικογένεια','η οικογένεια'],['','χωρίς άρθρο']].map(([v,t])=>
+          `<option value="${esc(v)}" ${(e.arthro===undefined?'ο':e.arthro)===v?'selected':''}>${esc(t)}</option>`).join('')}
+      </select>
+      <input type="text" id="e_diorg" value="${esc(e.diorganotis||'')}" placeholder="Ανδρέας" style="flex:1">
+    </div>
+    <div class="note">Θα γράφει: «${esc(fraseiDiorganoti()||'Σε προσκαλεί ο Ανδρέας')}»</div>
+    ${pedioEpilogis('e_titlos','Τίτλος',e.titlos,TITLOI[e.thema]||TITLOI.trapezi,'Γράψε τον δικό σου τίτλο')}
+    ${pedioEpilogis('e_topos','Τόπος',e.topos,TOPOI,'Γράψε τον δικό σου τόπο')}
+    <label for="e_dief">Διεύθυνση</label><input type="text" id="e_dief" value="${esc(e.dieuthinsi)}" placeholder="Οδός, αριθμός, περιοχή">
+    ${!e.dieuthinsi&&exeiPineza()?`<div class="note" style="border-left:4px solid var(--gold);padding-left:12px">Έχεις πινέζα αλλά όχι γραμμένη διεύθυνση. Οι καλεσμένοι θα φτάσουν με το κουμπί, όμως καλό είναι να διαβάζουν και πού πάνε.</div>`:''}
+    <h3 style="margin-top:24px">Πινέζα στον χάρτη</h3>
+    <p><small>Οι οδηγίες στους καλεσμένους βγαίνουν από την πινέζα, κι αν δεν υπάρχει, από τη διεύθυνση που έγραψες πιο πάνω.</small></p>
+    <button class="btn" id="pinezaEdo">📍 Είμαι εκεί τώρα</button>
+    <label for="e_pin">Ή γράψε τις συντεταγμένες</label>
+    <input type="text" id="e_pin" value="${exeiPineza()?e.plat.toFixed(6)+', '+e.mik.toFixed(6):''}" placeholder="π.χ. 35.33912, 25.13284">
+    <button class="btn ghost" id="valePineza" style="margin-top:8px">Βάλε την πινέζα</button>
+    <div class="note">Στο Google Maps κράτα πατημένο το σημείο· εμφανίζονται δύο αριθμοί κάτω κάτω. Πάτα τους για να αντιγραφούν και επικόλλησέ τους εδώ. Οι σύντομοι σύνδεσμοι δεν διαβάζονται.</div>
+    <div id="pinMin">${minimaPin?`<div class="ok">${esc(minimaPin)}</div>`:''}</div>
+    ${exeiPineza()?`<div class="mapbox" style="border-color:var(--line)">${xartisMesa(true)}</div>
+      <p style="margin-top:8px"><small>Πινέζα: ${e.plat.toFixed(5)}, ${e.mik.toFixed(5)}</small>
+      &nbsp;<a href="${syndesmosXarti()}" target="_blank" rel="noopener" style="color:var(--blue);font-size:14px">άνοιξέ την</a>
+      &nbsp;<button class="del" id="svisePineza" style="padding:4px 10px;display:inline-block">σβήσ᾽ την</button></p>`
+      :`<p><small>Χωρίς πινέζα, οι καλεσμένοι οδηγούνται στη διεύθυνση.</small></p>`}
+    <label for="e_orofos">Όροφος ή διαμέρισμα</label>
+    <input type="text" id="e_orofos" value="${esc(e.orofos||'')}" placeholder="π.χ. 3ος όροφος, κουδούνι Παπαδάκης">
+    <label for="e_synan">Σημείο συνάντησης</label><input type="text" id="e_synan" value="${esc(e.synantisi)}" placeholder="π.χ. στην πλατεία, στην είσοδο">
+    ${pedioEpilogis('e_park','Πάρκινγκ',e.parking,PARKING,'Γράψε το δικό σου')}
+    <label for="e_min">Μήνυμα στην πρόσκληση</label>
+    <textarea id="e_min" placeholder="${esc((MINYMATA[e.thema]||MINYMATA.parti)[0])}">${esc(e.minima)}</textarea>
+    <div class="note">Γράψε ό,τι θέλεις με δικά σου λόγια ή διάλεξε ένα από τα προτεινόμενα. Πάτα ξανά το ίδιο για να το ξεδιαλέξεις. Αν μείνει κενό, μπαίνει αυτό που φαίνεται αχνά μέσα στο πλαίσιο.</div>
+    <p style="margin-top:14px"><small>Προτεινόμενα για ${esc(themaTora().onoma.toLowerCase())} — πάτα όποιο θέλεις και άλλαξέ το.</small></p>
+    <div class="optlist">${(MINYMATA[e.thema]||MINYMATA.parti).map((k,i)=>
+      `<button class="opt minima" data-minima="${i}" aria-pressed="${e.minima===k}">${esc(k)}</button>`).join('')}</div>
+  </div>
+  <div class="card">
+    <h3>Δώρα</h3>
+    <div class="chips">${DORA.map(d=>`<button class="chip" data-dora="${d.id}" aria-pressed="${e.dora===d.id}">${esc(d.onoma)}</button>`).join('')}</div>
+    <div class="note" ${e.dora==='kanena'?'style="border-left:4px solid var(--red);padding-left:12px"':''}>${e.dora==='kanena'?'⚠️ ':''}${esc((DORA.find(d=>d.id===e.dora)||DORA[0]).epeksigisi)}</div>
+    ${e.dora==='koino'?`
+      <label for="e_dorTi">Τι είναι το κοινό δώρο</label>
+      <input type="text" id="e_dorTi" value="${esc(e.doroTi)}" placeholder="π.χ. ποδήλατο για τον Νίκο">
+      <label for="e_dorPoso">Προτεινόμενο ποσό ανά άτομο</label>
+      <input type="text" id="e_dorPoso" value="${esc(e.doroPoso)}" placeholder="π.χ. 20 ευρώ ο καθένας">
+      <label for="e_dorSyn">Συνολικό ποσό που θέλουμε να μαζέψουμε</label>
+      <input type="number" id="e_dorSyn" min="0" step="5" value="${esc(e.doroSynolo)}" placeholder="π.χ. 300">
+      <div class="note">Ο καθένας γράφει πόσα βάζει. Το ποσό του δεν το βλέπει κανείς, ούτε εσύ — αφαιρείται μόνο από το σύνολο, ώστε να φαίνεται τι εκκρεμεί ακόμη.</div>`:''}
+    ${e.dora!=='kanena'?`<label for="e_dorSim">Σημείωση για τα δώρα</label>
+      <input type="text" id="e_dorSim" value="${esc(e.doraSimeiosi)}" placeholder="π.χ. μαζεύει η Μαρία">`:''}
+    <h3 style="margin-top:20px">Τι ρωτάει η φόρμα</h3>
+    <div class="tick"><input type="checkbox" id="e_ferno" ${e.zitaFerno?'checked':''}><label for="e_ferno" style="margin:0">Να ρωτάει τι θα φέρει ο καθένας</label></div>
+    <div class="tick"><input type="checkbox" id="e_metak" ${e.zitaMetakinisi?'checked':''}><label for="e_metak" style="margin:0">Να ρωτάει πώς θα έρθει</label></div>
+    <div class="tick"><input type="checkbox" id="e_plithos" ${e.deixePlithos?'checked':''}><label for="e_plithos" style="margin:0">Να βλέπουν οι καλεσμένοι πόσοι έρχονται</label></div>
+  </div>
+  <div class="card">
+    <h3>Προθεσμία απαντήσεων</h3>
+    <div class="row">
+      <div><label for="e_prImer">Μέχρι</label><input type="date" id="e_prImer" value="${e.prothImer||''}"></div>
+      <div><label for="e_prOra">Ώρα</label><input type="time" id="e_prOra" value="${e.prothOra||'21:00'}"></div>
+    </div>
+    <p><small>${e.prothImer?'Μετά την προθεσμία η φόρμα κλειδώνει μόνη της. Άδειασε την ημερομηνία για να μείνει ανοιχτή.':'Χωρίς προθεσμία, δέχεσαι απαντήσεις μέχρι να κλείσεις εσύ τις δηλώσεις.'}</small></p>
+    <button class="btn ghost" id="kleidoma">${e.kleista?'🔓 Ξανάνοιξε τις δηλώσεις':'🔒 Κλείσε τις δηλώσεις τώρα'}</button>
+    <label for="e_kod">Κωδικός διοργανωτή</label><input type="text" id="e_kod" value="${esc(e.kodikos)}">
+    <div class="note" id="autoApoth">Ό,τι γράφεις αποθηκεύεται μόνο του. Το κουμπί είναι απλώς για σιγουριά.</div>
+    <button class="btn" id="apothEkd">💾 Αποθήκευσε τις αλλαγές</button>
+    ${minimaEkd?`<div class="ok">${esc(minimaEkd)}</div>`:''}
+  </div>
+  <div class="card">
+    <h3>Ξεκίνα καινούργια εκδήλωση</h3>
+    <p><small>Καθαρίζει τα πάντα από την τωρινή εκδήλωση για να στήσεις μια εντελώς άλλη. Οι ${DB.apantiseis.length} απαντήσεις που έχεις τώρα φεύγουν από την πρόσκληση — ποιοι έρχονται, τι θα φάνε, τι φέρνουν, πώς θα έρθουν. Κρατιούνται μόνο ο κατάλογος φαγητών και ποτών και οι ρυθμίσεις σου, για να μην τα ξαναγράφεις.</small></p>
+    <div class="kindynos">
+      ${rotaMidenismo
+        ? `<p style="margin-top:0"><b>Πριν προχωρήσεις, κατέβασε τις απαντήσεις.</b> Μπαίνουν και στο ιστορικό πιο κάτω, όμως το αρχείο είναι δικό σου και δεν χάνεται ποτέ.</p>
+           <button class="btn ghost" id="katevPrin" style="margin-top:0">⬇️ Κατέβασε τις ${DB.apantiseis.length} απαντήσεις</button>
+           <div class="tick" style="margin-top:14px">
+             <input type="checkbox" id="katalava" ${katalava?'checked':''}>
+             <label for="katalava" style="margin:0">Κατάλαβα ότι οι απαντήσεις φεύγουν από την πρόσκληση</label>
+           </div>
+           <div class="row" style="margin-top:12px">
+             <button class="btn ghost" id="akyroMiden" style="margin-top:0">Άσ᾽ το</button>
+             <button class="btn" id="naiMiden" style="margin-top:0;background:${katalava?'var(--red)':'#C9B7B6'};box-shadow:none">Καθάρισέ τα</button>
+           </div>`
+        : `<button class="btn ghost" id="midenise" style="margin-top:0;border-color:var(--red);color:var(--red)">🆕 Καινούργια εκδήλωση από την αρχή</button>`}
+    </div>
+    ${minimaOk?`<div class="ok">${esc(minimaOk)}</div>`:''}
+    ${(DB.istoriko||[]).length?`<h3 style="margin-top:24px">Οι εκδηλώσεις σου</h3>
+      <p><small>Πάτα σε όποια θέλεις για να δεις τις απαντήσεις της και να την ξανανοίξεις.</small></p>
+      <div class="optlist">${DB.istoriko.map((h,i)=>{
+        const pl=(h.apantiseis||[]).filter(a=>a.apantisi==='nai').reduce((x,a)=>x+(a.enilikes||0)+(a.paidia||0)+(a.vrefi||0),0);
+        return `<button class="opt" data-anoixe="${i}" aria-pressed="${anoixtoIst===i}">
+          <span style="font-weight:700">${esc(h.titlos)}</span><br>
+          <span style="font-size:13px;opacity:.85">${grafiImerominia(h.imerominia)} · ${pl} άτομα · ${(h.apantiseis||[]).length} απαντήσεις</span></button>
+        ${anoixtoIst===i?`<div class="opt-extra">
+          ${(h.apantiseis||[]).length?`<div style="max-height:230px;overflow:auto">
+            ${h.apantiseis.map(a=>`<div class="stat"><span>${esc(a.onoma)}</span>
+              <span class="pill ${a.apantisi==='nai'?'yes':a.apantisi==='oxi'?'no':'maybe'}">${a.apantisi==='nai'?(a.enilikes+a.paidia+a.vrefi)+' άτομα':a.apantisi==='oxi'?'όχι':'ίσως'}</span></div>`).join('')}
+            </div>`:'<div class="empty">Χωρίς απαντήσεις.</div>'}
+          <div class="row" style="margin-top:12px">
+            <button class="btn ghost mini" data-istor="${i}" style="width:100%">⬇️ Αρχείο</button>
+            ${h.ekdilosi?`<button class="btn mini" data-epanafora="${i}" style="width:100%">↩️ Άνοιξέ την</button>`:''}
+          </div>
+          ${h.ekdilosi?`<button class="btn ghost mini" data-antigrafiRyth="${i}" style="width:100%;margin-top:8px">📋 Πάρε μόνο τις ρυθμίσεις της</button>`:''}
+          </div>`:''}`;}).join('')}</div>
+      <div class="note">Το «Συνέχισε αυτή» φέρνει πίσω ολόκληρη την παλιά εκδήλωση — τίτλο, ημερομηνία, τόπο, κατάλογο και όλες τις απαντήσεις της — και βάζει την τωρινή στο ιστορικό. Δεν χάνεται καμία από τις δύο. Η φωτογραφία φόντου δεν αποθηκεύεται στο ιστορικό. Κρατιούνται οι δώδεκα τελευταίες.</div>`:''}
+  </div>`;
+}
+
+function grammiEidous(it,omada){
+  const mon=['τεμ.','λίτρα','μπουκάλια','κιλά','μερίδες','πακέτα'];
+  return `<div class="item" data-omada="${omada}" data-id="${it.id}">
+    <input type="text" class="i-eik" value="${esc(it.eik)}" maxlength="2" placeholder="🍽️">
+    <input type="text" class="i-onoma" value="${esc(it.onoma)}" placeholder="Όνομα είδους">
+    <select class="i-monada">${mon.map(m=>`<option ${m===it.monada?'selected':''}>${m}</option>`).join('')}</select>
+    <input type="text" class="i-ana" inputmode="decimal" value="${arith(it.ana)}">
+    <button class="del" data-svise="${it.id}" data-omada="${omada}">✕</button>
+  </div><div class="tick" style="margin:-2px 0 14px 46px;flex-wrap:wrap;gap:14px">
+    <label style="margin:0;font-size:13px;display:flex;align-items:center;gap:7px">
+      <input type="checkbox" class="i-prosf" data-id="${it.id}" data-omada="${omada}" ${it.prosf?'checked':''}>θα υπάρχει σίγουρα</label>
+  </div>`;
+}
+const LEXEIS_ALK=/μπ[υύ]ρ|κρασ|ποτ[όο]|ουζ|ού?ζο|τσ[ίι]πουρ|ρακ|ουΐ|ουίσκ|whisk|βότκ|βοτκ|τεκ[ίι]λ|ρο[υύ]μι?|σαμπ[άα]ν|λικ[έε]ρ|gin|τζιν|κοκτ[έαι]ιλ|σανγκρ/i;
+function protasiPosotitas(onoma,monada,omada){
+  const n=(onoma||'').toLowerCase();
+  if(omada==='pota'){
+    const dynato=/ουζ|τσ[ίι]πουρ|ρακ|β[όο]τκα|ουίσκ|ουισκ|τζιν|ρο[υύ]μι|τεκ[ίι]λ|λικ[έε]ρ|ποτ[όο]/.test(n);
+    const krasi=/κρασ|σαμπ[άα]ν/.test(n);
+    if(monada==='λίτρα') return dynato?0.15:krasi?0.4:1.2;
+    if(monada==='μπουκάλια') return dynato?0.2:krasi?0.5:2;
+    if(monada==='τεμ.') return dynato?0.2:krasi?0.5:2.5;
+    if(monada==='μερίδες') return dynato?1.5:2;
+    if(monada==='κιλά') return 0.5;
+    if(monada==='πακέτα') return 0.3;
+    return 1;
+  }
+  const kreas=/κρ[έε]ας|κοτ[όο]πουλ|μπιφτ[έε]κ|λουκ[άα]νικ|ψαρ|χοιριν|μοσχαρ|αρν/.test(n);
+  if(monada==='κιλά') return kreas?0.35:0.2;
+  if(monada==='μερίδες') return 1;
+  if(monada==='τεμ.') return /πίτσα|πιτσα/.test(n)?0.5:/τυροπ|σνακ|κεφτ/.test(n)?3:1;
+  if(monada==='πακέτα') return 0.3;
+  if(monada==='λίτρα') return 0.2;
+  return 1;
+}
+function anagnorisiAlkool(){
+  DB.pota.forEach(x=>{ x.alk=LEXEIS_ALK.test(x.onoma||''); });
+}
+function kartaMenou(){
+  return `<div class="card">
+    <h3>Πώς δουλεύει ο κατάλογος</h3>
+    <div class="note">Το κουτάκι <b>«θα υπάρχει σίγουρα»</b> είναι το κλειδί.
+      <br><br><b>Αν τσεκάρεις κάποια:</b> ο καλεσμένος δεν διαλέγει. Βλέπει «Τι θα πιούμε» με αυτά που όρισες, και από κάτω ένα μικρό πεδίο αν θέλει κάτι διαφορετικό.
+      <br><b>Αν δεν τσεκάρεις κανένα:</b> βλέπει όλη τη λίστα και διαλέγει τι προτιμά, με το ίδιο μικρό πεδίο από κάτω.
+      <br><b>Αν αδειάσεις τη λίστα:</b> γράφει μόνος του τι θα ήθελε.
+      <br><br>Η τελευταία στήλη κάθε γραμμής είναι η ποσότητα ανά ενήλικα. Από εκεί βγαίνει η λίστα αγορών. Τα αλκοολούχα τα αναγνωρίζω από το όνομα και τα υπολογίζω μόνο για ενήλικες.</div>
+    <div class="note" style="margin-top:14px;border:2px solid var(--gold);padding:12px;border-radius:11px" id="katastasiMenou">${menouAllages
+      ? '⚠️ Έχεις αλλαγές που δεν έχουν αποθηκευτεί. Οι καλεσμένοι βλέπουν ακόμη τον παλιό κατάλογο.'
+      : 'Ο κατάλογος περνάει στην πρόσκληση μόνο αφού τον αποθηκεύσεις.'}</div>
+    <button class="btn" id="apothMenouPanw">💾 Αποθήκευσε τον κατάλογο</button>
+    ${minimaOk?`<div class="ok">${esc(minimaOk)}</div>`:''}
+  </div>
+  <div class="card"><h3>Ποτά</h3>
+    <p><small>${DB.pota.length===0?'Άδειος — ο καλεσμένος θα γράψει μόνος του.':DB.pota.some(x=>x.prosf)?'Ορισμένα: '+DB.pota.filter(x=>x.prosf).map(x=>x.onoma).join(', ')+' — δεν θα ερωτηθεί κανείς.':DB.pota.length+' είδη προς επιλογή από τον καλεσμένο.'}</small></p>
+    ${DB.pota.map(it=>grammiEidous(it,'pota')).join('')}
+    <button class="btn ghost mini" data-prosthese="pota">+ Πρόσθεσε ποτό</button></div>
+  <div class="card"><h3>Φαγητά</h3>
+    <p><small>${DB.fagita.length===0?'Άδειος — ο καλεσμένος θα γράψει μόνος του.':DB.fagita.some(x=>x.prosf)?'Ορισμένα: '+DB.fagita.filter(x=>x.prosf).map(x=>x.onoma).join(', ')+' — δεν θα ερωτηθεί κανείς.':DB.fagita.length+' είδη προς επιλογή από τον καλεσμένο.'}</small></p>
+    ${DB.fagita.map(it=>grammiEidous(it,'fagita')).join('')}
+    <button class="btn ghost mini" data-prosthese="fagita">+ Πρόσθεσε φαγητό</button></div>
+  <button class="btn" id="apothMenou">💾 Αποθήκευσε τον κατάλογο</button>
+  ${minimaOk?`<div class="ok">${esc(minimaOk)}</div>`:''}`;
+}
+
+function kartaApantiseon(){
+  if(!DB.apantiseis.length) return `<div class="card"><div class="empty">Κανείς δεν έχει απαντήσει ακόμη. Μοίρασε τον σύνδεσμο.</div></div>`;
+  const on=(l,ids)=>(ids||[]).map(i=>{const t=l.concat(ADIAFORO).find(x=>x.id===i);return t?t.eik:'';}).join(' ');
+  const seira=DB.apantiseis.slice().sort((a,b)=>b.pote-a.pote);
+  return `<div class="card">
+    <table><thead><tr><th>Όνομα</th><th>Άτομα</th><th>Πίνει</th><th>Τρώει</th></tr></thead><tbody>
+    ${seira.map(a=>`<tr>
+      <td><b>${esc(a.onoma)}</b><br><span class="pill ${a.apantisi==='nai'?'yes':a.apantisi==='oxi'?'no':'maybe'}">${a.apantisi==='nai'?'έρχεται':a.apantisi==='oxi'?'δεν έρχεται':'ίσως'}</span>
+        ${(a.onomata||[]).length?`<br><small>${esc((a.onomata||[]).join(', '))}</small>`:''}
+        ${a.alergies?`<br><small>⚠️ ${esc(a.alergies)}</small>`:''}
+        ${a.elef_pota?`<br><small>🥤 θα ήθελε: ${esc(a.elef_pota)}</small>`:''}
+        ${a.elef_fagita?`<br><small>🍽️ θα ήθελε: ${esc(a.elef_fagita)}</small>`:''}
+        ${keimenoFernei(a)?`<br><small>🎒 ${esc(keimenoFernei(a))}</small>`:''}
+        ${a.simeiosi?`<br><small>${esc(a.simeiosi)}</small>`:''}</td>
+      <td>${a.apantisi==='oxi'?'—':(a.enilikes+'ε'+(a.paidia?' '+a.paidia+'π':'')+(a.vrefi?' '+a.vrefi+'β':''))}</td>
+      <td>${on(DB.pota,a.pota)}</td><td>${on(DB.fagita,a.fagita)}</td></tr>`).join('')}
+    </tbody></table>
+    <button class="btn" id="ananeosi">🔄 Ανανέωσε τώρα</button>
+    <button class="btn ghost" id="exagogi">⬇️ Κατέβασε τις απαντήσεις σε αρχείο</button>
+    ${minimaOk?`<div class="ok">${esc(minimaOk)}</div>`:''}</div>`;
+}
+
+function diakoptisIsos(){
+  return `<button class="btn ghost mini" id="diakIsos" style="width:100%">${meIsos?'✓ Μετράω και όσους είπαν ίσως':'Να μετρήσω και όσους είπαν ίσως;'}</button>`;
+}
+function grammiSynolou(klidi,titlos,timi,poioi){
+  const anoixto=anoixtoSyn===klidi;
+  return `<button class="stat" data-syn="${klidi}" style="width:100%;background:none;border:0;border-bottom:1px solid var(--line);
+    font-family:inherit;font-size:16px;color:var(--ink);cursor:pointer;text-align:left">
+      <span>${titlos}${poioi.length?' <span style="opacity:.5">'+(anoixto?'▾':'▸')+'</span>':''}</span><b>${timi}</b></button>
+    ${anoixto&&poioi.length?`<div class="opt-extra">${poioi.map(x=>`<div class="stat"><span>${esc(x.onoma)}</span><span class="pill">${esc(x.leptomereia)}</span></div>`).join('')}</div>`:''}`;
+}
+function kartaSynolon(){
+  const n=plithos(false), i=plithos(true);
+  const isos={enilikes:i.enilikes-n.enilikes,paidia:i.paidia-n.paidia,vrefi:i.vrefi-n.vrefi};
+  const oxi=DB.apantiseis.filter(a=>a.apantisi==='oxi').length;
+  const poioiGia=(klidi,id)=>erxontai(meIsos).filter(a=>(a[klidi]||[]).includes(id))
+    .map(a=>({onoma:a.onoma,leptomereia:(a.enilikes+a.paidia)+' άτομα'}));
+  const grammi=(x,klidi)=>grammiSynolou(klidi+'_'+x.id,x.eik+' '+esc(x.onoma),x.atoma,poioiGia(klidi,x.id));
+  const seira=(l,k)=>zitisi(l,k,meIsos).filter(x=>x.atoma>0).sort((a,b)=>b.atoma-a.atoma);
+  const po=seira(DB.pota,'pota'), fa=seira(DB.fagita,'fagita'), di=seira(DIATROFI,'diatrofi');
+  const alergies=erxontai(meIsos).filter(a=>a.alergies).map(a=>esc(a.onoma)+': '+esc(a.alergies));
+  const fern=DB.apantiseis.filter(a=>keimenoFernei(a)&&a.apantisi!=='oxi');
+  const doroKoino=erxontai(true).filter(a=>a.doro==='koino');
+  const nai=DB.apantiseis.filter(a=>a.apantisi==='nai');
+  const isosA=DB.apantiseis.filter(a=>a.apantisi==='isos');
+  const oxiA=DB.apantiseis.filter(a=>a.apantisi==='oxi');
+  const pl=a=>(a.enilikes+a.paidia+a.vrefi)+' άτομα';
+  return `<div class="card">
+    ${grammiSynolou('erx','Έρχονται σίγουρα',n.synolo,nai.map(a=>({onoma:a.onoma,leptomereia:pl(a)})))}
+    ${grammiSynolou('en','Ενήλικες',n.enilikes,nai.filter(a=>a.enilikes>0).map(a=>({onoma:a.onoma,leptomereia:a.enilikes+''})))}
+    ${grammiSynolou('pa','Παιδιά',n.paidia,nai.filter(a=>a.paidia>0).map(a=>({onoma:a.onoma,leptomereia:a.paidia+''})))}
+    ${grammiSynolou('vr','Βρέφη',n.vrefi,nai.filter(a=>a.vrefi>0).map(a=>({onoma:a.onoma,leptomereia:a.vrefi+''})))}
+    ${grammiSynolou('isos','Ίσως έρθουν',isos.enilikes+isos.paidia+isos.vrefi,isosA.map(a=>({onoma:a.onoma,leptomereia:pl(a)})))}
+    ${grammiSynolou('oxi','Είπαν όχι',oxi,oxiA.map(a=>({onoma:a.onoma,leptomereia:'δεν έρχεται'})))}
+  </div>
+  <div class="card">${diakoptisIsos()}
+    <h3 style="margin-top:14px">Ποτά</h3>${po.length?po.map(x=>grammi(x,'pota')).join(''):'<div class="empty">Καμία επιλογή ακόμη.</div>'}
+    <h3 style="margin-top:18px">Φαγητά</h3>${fa.length?fa.map(x=>grammi(x,'fagita')).join(''):'<div class="empty">Καμία επιλογή ακόμη.</div>'}
+    ${di.length?`<h3 style="margin-top:18px">Ειδικές μερίδες</h3>${di.map(x=>grammi(x,'diatrofi')).join('')}`:''}
+    ${(()=>{const ap=erxontai(meIsos).filter(a=>(a.pota||[]).includes('p_opoio')||(a.fagita||[]).includes('f_opoio'));
+      return ap.length?`<div class="note" style="margin-top:16px">💡 ${ap.length} ${ap.length===1?'απάντηση αφήνει':'απαντήσεις αφήνουν'} την επιλογή σε σένα: ${ap.map(a=>esc(a.onoma)).join(', ')}</div>`:'';})()}
+    ${alergies.length?`<h3 style="margin-top:18px">Προσοχή</h3><div class="note">⚠️ ${alergies.join('<br>⚠️ ')}</div>`:''}
+  </div>
+  <div class="card"><h3>Τι φέρνουν οι καλεσμένοι</h3>
+    ${fern.length?fern.map(a=>(a.ferno||[]).filter(f=>f.ti).map(f=>
+      `<div class="stat"><span>${esc(a.onoma)}</span><span>${fersimoEik(f.kat)} ${esc(fersimoOnoma(f.kat))} — ${esc(f.ti)}</span></div>`).join('')).join('')
+      :'<div class="empty">Κανείς δεν έχει δηλώσει κάτι.</div>'}
+  </div>
+  ${kartaMetakinisis()}
+  ${DB.ekdilosi.dora==='koino'?`<div class="card"><h3>Κοινό δώρο</h3>
+    ${doroKoino.length?doroKoino.map(a=>`<div class="stat"><span>${esc(a.onoma)}</span><span>μέσα</span></div>`).join(''):'<div class="empty">Κανείς ακόμη.</div>'}
+    ${(()=>{const t=tameioDorou(); if(!t.syn) return doroKoino.length?`<div class="note">Συμμετέχουν ${doroKoino.length}. Βάλε συνολικό ποσό στα Δώρα για να βλέπεις τι εκκρεμεί.</div>`:'';
+      return `<div class="stat"><span>Στόχος</span><b>${t.syn}</b></div>
+        <div class="stat"><span>Έχουν δηλωθεί</span><b>${t.mazemena}</b></div>
+        <div class="stat"><span>Εκκρεμούν</span><b>${t.ypoloipo}</b></div>
+        <div class="note">Τα ποσά του καθενός δεν φαίνονται πουθενά — ούτε σ᾽ εσένα.</div>`;})()}</div>`:''}`;
+}
+
+function fakelosEkdilosis(){
+  const e={...DB.ekdilosi}; delete e.fotoFonto;
+  return {titlos:e.titlos, imerominia:e.imerominia, pote:Date.now(),
+    ekdilosi:e, pota:DB.pota.map(x=>({...x})), fagita:DB.fagita.map(x=>({...x})),
+    apantiseis:DB.apantiseis.map(a=>({...a}))};
+}
+function kartaMetakinisis(){
+  const oloi=erxontai(true);
+  const odigoi=oloi.filter(a=>a.metakinisi==='m_auto');
+  const meThesi=odigoi.filter(a=>(a.theseis||0)>0);
+  const zitoun=oloi.filter(a=>a.metakinisi==='m_synod');
+  const alloi=oloi.filter(a=>a.metakinisi&&a.metakinisi!=='m_auto'&&a.metakinisi!=='m_synod');
+  const xoris=oloi.filter(a=>!a.metakinisi);
+  const theseis=meThesi.reduce((x,a)=>x+(a.theseis||0),0);
+  const isorropia = theseis-zitoun.length;
+  const on=id=>(METAKINISI.find(m=>m.id===id)||{}).onoma||'';
+  const eik=id=>(METAKINISI.find(m=>m.id===id)||{}).eik||'•';
+  if(!oloi.length) return `<div class="card"><h3>Μετακίνηση</h3><div class="empty">Καμία δήλωση ακόμη.</div></div>`;
+  return `<div class="card"><h3>Μετακίνηση</h3>
+    <div class="megala">${theseis} ${theseis===1?'ελεύθερη θέση':'ελεύθερες θέσεις'} σε αυτοκίνητα</div>
+    <div class="megala">${zitoun.length} ${zitoun.length===1?'άτομο ψάχνει':'άτομα ψάχνουν'} θέση</div>
+    ${zitoun.length?`<div class="note">${isorropia>=0?'Φτάνουν οι θέσεις — περισσεύουν '+isorropia+'.':'Λείπουν '+(-isorropia)+' θέσεις. Ρώτα κάποιον οδηγό αν χωράει έναν παραπάνω.'}</div>`:''}
+
+    <h3 style="margin-top:22px">Οδηγοί</h3>
+    ${odigoi.length?odigoi.map(a=>`<div class="stat"><span>🚗 ${esc(a.onoma)}</span><span>${(a.theseis||0)>0?a.theseis+' ελεύθερες θέσεις':'γεμάτο'}</span></div>`).join(''):'<div class="empty">Κανένας οδηγός.</div>'}
+
+    ${(()=>{
+      const dies=meThesi.map(a=>({onoma:a.onoma,thes:a.theseis||0}));
+      const zit=zitoun.map(a=>({onoma:a.onoma,atoma:(a.enilikes||0)+(a.paidia||0)+(a.vrefi||0)}));
+      if(!dies.length||!zit.length) return '';
+      const protaseis=[];
+      zit.forEach(z=>{
+        const od=dies.find(d=>d.thes>=z.atoma) || dies.find(d=>d.thes>0);
+        if(od){ protaseis.push(od.onoma+' → '+z.onoma+' ('+z.atoma+(z.atoma===1?' άτομο':' άτομα')+')'); od.thes-=z.atoma; }
+        else protaseis.push('❗ '+z.onoma+' — δεν βρέθηκε θέση');
+      });
+      return `<h3 style="margin-top:22px">Πρόταση μοιράσματος</h3>
+        <div class="note" style="font-size:15px;line-height:1.8">${protaseis.map(x=>esc(x)).join('<br>')}
+        <div style="font-size:13px;margin-top:8px;opacity:.85">Απλή πρόταση με βάση τις θέσεις. Κανόνισέ το όπως σε βολεύει.</div></div>`;
+    })()}
+    <h3 style="margin-top:22px">Ψάχνουν να τους πάρει κάποιος</h3>
+    ${zitoun.length?zitoun.map(a=>`<div class="stat"><span>🙋 ${esc(a.onoma)}</span><span>${a.enilikes+a.paidia+a.vrefi} άτομα</span></div>`).join(''):'<div class="empty">Κανείς.</div>'}
+
+    <h3 style="margin-top:22px">Έρχονται μόνοι τους</h3>
+    ${alloi.length?alloi.map(a=>`<div class="stat"><span>${eik(a.metakinisi)} ${esc(a.onoma)}</span><span>${esc(on(a.metakinisi))}</span></div>`).join(''):'<div class="empty">Κανείς.</div>'}
+
+    ${xoris.length?`<h3 style="margin-top:22px">Δεν δήλωσαν τρόπο</h3>
+      ${xoris.map(a=>`<div class="stat"><span>❓ ${esc(a.onoma)}</span><span>${a.enilikes+a.paidia+a.vrefi} άτομα</span></div>`).join('')}
+      <div class="note">Πάρ᾽ τους τηλέφωνο ή στείλε ξανά τον σύνδεσμο για να συμπληρώσουν πώς θα έρθουν.</div>`:''}
+  </div>`;
+}
+
+function kartaAgoron(){
+  const ola=[...zitisi(DB.pota,'pota',meIsos),...zitisi(DB.fagita,'fagita',meIsos)].filter(x=>x.atoma>0);
+  const n=plithos(meIsos);
+  const fern=DB.apantiseis.filter(a=>keimenoFernei(a)&&a.apantisi!=='oxi');
+  if(!ola.length) return `<div class="card">${diakoptisIsos()}<div class="empty">Η λίστα θα γεμίσει μόλις αρχίσουν να απαντούν.</div></div>`;
+  return `<div class="card">${diakoptisIsos()}
+    <h3 style="margin-top:14px">Για ${n.enilikes} ενήλικες και ${n.paidia} παιδιά</h3>
+    ${ola.map(x=>{
+      const vasi=x.alk?x.en:x.en+x.pa*0.6, akat=vasi*x.ana, sym=symvouliAgoras(x,akat);
+      return `<div class="buy"><span>${x.eik} ${esc(x.onoma)} <small>(${x.en}${x.pa&&!x.alk?'+'+x.pa+' παιδιά':''})</small>
+        ${sym?`<br><small style="opacity:.85">${esc(sym)}</small>`:''}</span><span>${posotita(x)}</span></div>`;
+    }).join('')}
+    ${fern.length?`<div class="note" style="margin-top:14px">Μην τα πάρεις διπλά — φέρνουν: ${fern.map(a=>esc(keimenoFernei(a))).join(' · ')}</div>`:''}
+    <button class="btn ghost" id="antigrafi">Αντίγραψε τη λίστα</button>
+    ${minimaOk?`<div class="ok">${esc(minimaOk)}</div>`:''}</div>`;
+}
+
+/* ================= Χειρισμός ================= */
+function syndese(){
+  const on=(sel,ev,fn)=>document.querySelectorAll(sel).forEach(x=>x.addEventListener(ev,fn));
+  const b=(id,fn)=>{const x=el(id); if(x) x.addEventListener('click',fn);};
+  document.addEventListener('focusin',ev=>{ if(ev.target.matches('.item input')){ try{ev.target.select();}catch(e){} } });
+
+  on('.choice','click',e=>{ mazepse(); p.apantisi=e.currentTarget.dataset.apantisi; zografise('meros'); });
+
+  on('.nb','click',ev=>{
+    const b=ev.currentTarget, x=el(b.dataset.pedio); if(!x) return;
+    const min=+x.min||0, max=+x.max||99;
+    x.value=Math.min(max,Math.max(min,(+x.value||0)+(+b.dataset.vima)));
+    mazepse();
+    if(b.dataset.pedio==='theseis') zografise();
+  });
+
+  b('naiVan',()=>{ mazepse(); p.vanaki=true; zografise(); });
+  b('oxiVan',()=>{ mazepse(); p.vanaki=false; p.leoforeio=false; p.theseis=4; zografise(); });
+  b('naiLeo',()=>{ mazepse(); p.leoforeio=true; zografise(); });
+  b('oxiLeo',()=>{ mazepse(); p.leoforeio=false; p.theseis=8; zografise(); });
+  const thes=el('theseis');
+  if(thes) thes.addEventListener('change',()=>{ mazepse(); zografise(); });
+
+  on('[data-parath]','click',ev=>{ mazepse(); anoixtoParathyro=ev.currentTarget.dataset.parath; zografise(); });
+  const pd=el('posoDorou');
+  if(pd){ ['change','blur'].forEach(t=>pd.addEventListener(t,()=>{ mazepse(); zografise(); })); }
+  b('kleiseParath',()=>{ mazepse(); anoixtoParathyro=''; zografise(); });
+  on('[data-fers]','click',ev=>{
+    mazepse();
+    const id=ev.currentTarget.dataset.fers, i=p.ferno.findIndex(x=>x.kat===id);
+    i>-1?p.ferno.splice(i,1):p.ferno.push({kat:id,ti:''});
+    zografise();
+  });
+
+  const kouti=el('onomataL');
+  if(kouti){
+    kouti.addEventListener('input',ev=>{
+      if(!ev.target.classList.contains('onoma-k')) return;
+      const oles=[...kouti.querySelectorAll('.onoma-k')], telefteo=oles[oles.length-1];
+      if(telefteo.value.trim()!=='' && oles.length<12){
+        const d=document.createElement('div'); d.className='onoma-row';
+        d.innerHTML='<input type="text" class="onoma-k" placeholder="Όνομα '+(oles.length+1)+'">';
+        kouti.appendChild(d);
+      }
+    });
+  }
+  on('.chip[data-omada]','click',e=>{
+    const {omada,id}=e.currentTarget.dataset, l=p[omada], i=l.indexOf(id);
+    i>-1?l.splice(i,1):l.push(id);
+    e.currentTarget.setAttribute('aria-pressed', i===-1);
+  });
+  on('.chip[data-mono],.opt[data-mono]','click',e=>{
+    const {mono,timi}=e.currentTarget.dataset;
+    mazepse(); p[mono]= p[mono]===timi?'':timi; zografise();
+  });
+
+  /* καλεσμένος */
+  b('steile',async()=>{
+    mazepse();
+    const f0=await fresko();
+    if(f0){ if(f0.ekdilosi) DB.ekdilosi=Object.assign(DB.ekdilosi,f0.ekdilosi); if(f0.apantiseis) DB.apantiseis=f0.apantiseis; }
+    if(kleidomeno()){ zografise(); return; }
+    if(!p.onoma.trim()){ minimaOk='Γράψε πρώτα το όνομά σου.'; zografise(); return; }
+    if(!p.apantisi){ minimaOk='Διάλεξε αν θα έρθεις.'; zografise(); return; }
+    const idio=DB.apantiseis.find(a=>a.id!==EGO && kanoniko(a.onoma)===kanoniko(p.onoma));
+    if(idio){ minimaOk='Υπάρχει ήδη απάντηση από «'+idio.onoma+'». Πρόσθεσε επώνυμο ή κάτι που σε ξεχωρίζει, π.χ. «Κώστας ο ξάδερφος», για να μη μπερδευτεί ο διοργανωτής.'; zografise(); return; }
+    const oxi=p.apantisi==='oxi';
+    const eg={id:EGO||('a'+Date.now()+Math.random().toString(36).slice(2,6)),
+      onoma:p.onoma.trim(), apantisi:p.apantisi,
+      enilikes:oxi?0:Math.max(1,p.enilikes), paidia:oxi?0:p.paidia, vrefi:oxi?0:p.vrefi,
+      onomata:oxi?[]:(p.onomata||[]),
+      pota:oxi?[]:(DB.pota.some(x=>x.prosf)?DB.pota.filter(x=>x.prosf).map(x=>x.id):p.pota),
+      fagita:oxi?[]:(DB.fagita.some(x=>x.prosf)?DB.fagita.filter(x=>x.prosf).map(x=>x.id):p.fagita),
+      elef_pota:oxi?'':(p.elef_pota||'').trim(), elef_fagita:oxi?'':(p.elef_fagita||'').trim(), diatrofi:oxi?[]:p.diatrofi, alergies:oxi?'':p.alergies.trim(),
+      ferno:oxi?[]:p.ferno.filter(f=>f.ti.trim()).map(f=>({kat:f.kat,ti:f.ti.trim()})),
+      doro:oxi?'':p.doro, posoDorou:(!oxi&&p.doro==='koino')?p.posoDorou:'', metakinisi:oxi?'':p.metakinisi,
+      theseis:p.metakinisi==='m_auto'?(p.leoforeio?Math.min(16,p.theseis):p.vanaki?Math.min(8,p.theseis):Math.min(4,p.theseis)):0,
+      simeiosi:p.simeiosi.trim(), pote:Date.now()};
+    const th=DB.apantiseis.findIndex(a=>a.id===eg.id);
+    th>-1?DB.apantiseis[th]=eg:DB.apantiseis.push(eg);
+    if(meFyllo){
+      try{ await fylloPost({energeia:'apantisi', dedomena:eg}); katastasiSyndesis='syndedemeno'; }
+      catch(err){ katastasiSyndesis='xoris'; minimaOk='Δεν έφτασε στον διοργανωτή — δοκίμασε ξανά σε λίγο.'; zografise(); return; }
+    } else { await save(KEY_ALL,DB,true); }
+    EGO=eg.id; await save(KEY_ME,{id:EGO,ekdId:DB.ekdId},false);
+    minimaOk = eg.apantisi==='nai'?'Καταχωρήθηκε. Τα λέμε!' : eg.apantisi==='isos'?'Καταχωρήθηκε. Πες μας μόλις σιγουρευτείς.' : 'Καταχωρήθηκε. Κρίμα, την άλλη φορά!';
+    zografise();
+  });
+  b('ics',prostheseImerologio);
+  b('icsArx',katevaseImerologio);
+  b('proxDiax',()=>{othoni='diaxeirisi';minimaOk='';zografise('panw');});
+  b('pisoKal',()=>{othoni='kalesmenos';minimaOk='';zografise('panw');});
+  b('mpes',()=>{ if(el('kodikos').value.trim()===DB.ekdilosi.kodikos){xekleidoto=true;minimaOk='';} else minimaOk='Λάθος κωδικός. Δοκίμασε ξανά.'; zografise(); });
+  on('.tab','click',e=>{karteta=e.currentTarget.dataset.karteta;minimaOk='';minimaEkd='';zografise('panw');});
+  b('diakIsos',()=>{meIsos=!meIsos;zografise();});
+
+  /* σύνδεσμος */
+  const syn=()=>keimenoSyndesmou();
+  async function antigrapse(k){
+    try{ if(navigator.clipboard&&window.isSecureContext){ await navigator.clipboard.writeText(k); return true; } }catch(e){}
+    try{
+      const ta=document.createElement('textarea'); ta.value=k; ta.setAttribute('readonly','');
+      ta.style.position='fixed'; ta.style.top='-1000px'; document.body.appendChild(ta);
+      ta.select(); ta.setSelectionRange(0,99999);
+      const ok=document.execCommand('copy'); document.body.removeChild(ta); return ok;
+    }catch(e){ return false; }
+  }
+  const keimProsk=keimenoProsklisis;
+  b('moirasou',async()=>{
+    const ok=await antigrapse(keimProsk());
+    minimaOk = ok ? 'Η πρόσκληση αντιγράφηκε. Επικόλλησέ την όπου θέλεις — μηνύματα, ηλεκτρονικό ταχυδρομείο, ομάδες.'
+                  : 'Κράτα πατημένο το κείμενο πιο κάτω και αντίγραψέ το.';
+    zografise();
+  });
+
+  let xrono=null;
+  document.querySelectorAll('#app input,#app textarea,#app select').forEach(x=>{
+    if(!/^e_/.test(x.id||'')) return;
+    const drasi=()=>{
+      clearTimeout(xrono);
+      xrono=setTimeout(async()=>{
+        pedia(); await apothikefse();
+        const sim=el('autoApoth');
+        if(sim) sim.textContent='Αποθηκεύτηκε αυτόματα στις '+new Date().toLocaleTimeString('el-GR',{hour:'2-digit',minute:'2-digit'});
+      },700);
+    };
+    x.addEventListener('input',drasi); x.addEventListener('change',drasi);
+  });
+
+  ['e_titlos','e_topos','e_park'].forEach(id=>{
+    const sel=el(id+'_ep'), ped=el(id);
+    if(!sel||!ped) return;
+    sel.addEventListener('change',async()=>{
+      if(sel.value==='__allo'){ ped.style.display=''; ped.value=''; ped.focus(); return; }
+      ped.style.display='none'; ped.value=sel.value;
+      pedia(); await apothikefse();
+      const sim=el('autoApoth'); if(sim) sim.textContent='Αποθηκεύτηκε: '+(sel.value||'κενό');
+    });
+  });
+
+  b('antigrafiMesa',async()=>{
+    const ok=await antigrapse(keimenoProsklisis());
+    minimaApost = ok?'✅ Αντιγράφηκε. Άνοιξε τη συνομιλία και κάνε επικόλληση.':'Δεν έγινε η αντιγραφή. Κράτα πατημένο τον σύνδεσμο στην προηγούμενη οθόνη.';
+    zografise();
+  });
+  on('[data-stelno]','click',async ev=>{
+    const url=ev.currentTarget.dataset.stelno;
+    await antigrapse(keimenoProsklisis());
+    let anoixe=false;
+    try{ const w=window.open(url,'_blank'); if(w) anoixe=true; }catch(err){}
+    if(!anoixe){ try{ window.top.location.href=url; anoixe=true; }catch(err){} }
+    if(!anoixe){ try{ location.href=url; anoixe=true; }catch(err){} }
+    if(!anoixe){
+      minimaApost='Η εφαρμογή δεν άνοιξε από εδώ, αλλά η πρόσκληση αντιγράφηκε. Άνοιξέ την μόνος σου και κάνε επικόλληση.';
+      zografise();
+    }
+  });
+  b('anoixeQr',()=>{ pedia(); anoixtoQr=true; zografise(); });
+  b('kleiseQr',()=>{ anoixtoQr=false; zografise(); });
+  b('katevQr',()=>{
+    const svg=qrSvg(keimenoSyndesmou(),600);
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}));
+    a.download='kodikos-prosklisis.svg'; a.click(); URL.revokeObjectURL(a.href);
+  });
+  b('anoixeApost',()=>{ pedia(); anoixtiApostoli=true; minimaOk=''; zografise(); });
+  b('kleiseApost',()=>{ anoixtiApostoli=false; zografise(); });
+  b('koinopoiise',async()=>{
+    const d={title:DB.ekdilosi.titlos,text:keimenoProsklisis(),url:keimenoSyndesmou()};
+    try{
+      if(navigator.share&&(!navigator.canShare||navigator.canShare(d))){ await navigator.share(d); return; }
+    }catch(err){}
+    const ok=await antigrapse(keimenoProsklisis());
+    minimaOk = ok ? 'Το μενού κοινοποίησης δεν ανοίγει από εδώ, οπότε αντέγραψα την πρόσκληση. Επικόλλησέ την στη συνομιλία που θέλεις.'
+                  : 'Το μενού κοινοποίησης δεν ανοίγει από εδώ. Αντίγραψε την πρόσκληση με το πάνω κουμπί.';
+    zografise();
+  });
+  b('antigrapseSyndesmo',async()=>{
+    const ok=await antigrapse(syn());
+    minimaOk = ok ? 'Ο σύνδεσμος αντιγράφηκε.' : 'Κράτα πατημένο τον σύνδεσμο πιο κάτω και αντίγραψέ τον.';
+    zografise();
+  });
+
+  /* εκδήλωση */
+  function pedia(){
+    const e=DB.ekdilosi, g=id=>el(id);
+    if(g('e_titlos')) e.titlos=g('e_titlos').value.trim();
+    if(g('e_imer')) e.imerominia=g('e_imer').value;
+    if(g('e_ora')) e.ora=g('e_ora').value;
+    if(g('e_diark')) e.diarkeia=Math.max(1,+g('e_diark').value||4);
+    if(g('e_topos')) e.topos=g('e_topos').value.trim();
+    if(g('e_dief')) e.dieuthinsi=g('e_dief').value.trim();
+    if(g('e_synan')) e.synantisi=g('e_synan').value.trim();
+    if(g('e_park')) e.parking=g('e_park').value.trim();
+    if(g('e_min')) e.minima=g('e_min').value.trim();
+    if(g('e_diorg')) e.diorganotis=g('e_diorg').value.trim();
+    if(g('e_arthro')) e.arthro=g('e_arthro').value;
+    if(g('e_dimosios')) e.dimosios=g('e_dimosios').value.trim();
+    if(g('e_alloOn')) e.alloOnoma=g('e_alloOn').value.trim();
+    if(g('e_alloEik')) e.alloEik=g('e_alloEik').value.trim();
+    if(g('e_orofos')) e.orofos=g('e_orofos').value.trim();
+    if(g('e_dorSim')) e.doraSimeiosi=g('e_dorSim').value.trim();
+    if(g('e_dorTi')) e.doroTi=g('e_dorTi').value.trim();
+    if(g('e_dorPoso')) e.doroPoso=g('e_dorPoso').value.trim();
+    if(g('e_dorSyn')) e.doroSynolo=g('e_dorSyn').value.trim();
+    if(g('e_ferno')) e.zitaFerno=g('e_ferno').checked;
+    if(g('e_metak')) e.zitaMetakinisi=g('e_metak').checked;
+    if(g('e_plithos')) e.deixePlithos=g('e_plithos').checked;
+    if(g('e_prImer')) e.prothImer=g('e_prImer').value;
+    if(g('e_prOra')) e.prothOra=g('e_prOra').value||'21:00';
+    if(g('e_kod')) e.kodikos=g('e_kod').value.trim()||'1234';
+  }
+  b('apothEkd',async()=>{
+    pedia(); await apothikefse();
+    const t=new Date().toLocaleTimeString('el-GR',{hour:'2-digit',minute:'2-digit'});
+    minimaEkd='✅ Αποθηκεύτηκαν στις '+t+'. Οι καλεσμένοι βλέπουν ήδη τις αλλαγές.';
+    zografise();
+  });
+  b('midenise',()=>{ pedia(); rotaMidenismo=true; katalava=false; minimaOk=''; zografise(); });
+  b('akyroMiden',()=>{ rotaMidenismo=false; katalava=false; zografise(); });
+  const tsek=el('katalava');
+  if(tsek) tsek.addEventListener('change',()=>{ katalava=tsek.checked; zografise(); });
+  b('katevPrin',()=>katevase(DB.apantiseis,DB.ekdilosi.titlos));
+  on('[data-istor]','click',e=>{
+    const h=DB.istoriko[+e.currentTarget.dataset.istor];
+    if(h) katevase(h.apantiseis,h.titlos);
+  });
+  on('[data-syn]','click',ev=>{
+    const k=ev.currentTarget.dataset.syn;
+    anoixtoSyn = anoixtoSyn===k ? '' : k;
+    zografise();
+  });
+  on('[data-anoixe]','click',ev=>{
+    pedia();
+    const i=+ev.currentTarget.dataset.anoixe;
+    anoixtoIst = anoixtoIst===i ? -1 : i;
+    zografise();
+  });
+  on('[data-antigrafiRyth]','click',async ev=>{
+    const h=DB.istoriko[+ev.currentTarget.dataset.antigrafiRyth];
+    if(!h||!h.ekdilosi) return;
+    pedia();
+    const kr=DB.ekdilosi;
+    const pali=h.ekdilosi;
+    ['thema','alloOnoma','alloEik','fonto','plaisio','entasi','selidaXroma','topos','dieuthinsi','plat','mik','orofos','synantisi','parking','minima','dora','doraSimeiosi','doroTi','doroPoso','zitaFerno','zitaMetakinisi','deixePlithos','diarkeia']
+      .forEach(k=>{ if(pali[k]!==undefined) kr[k]=pali[k]; });
+    DB.pota=(h.pota||DB.pota).map(x=>({...x}));
+    DB.fagita=(h.fagita||DB.fagita).map(x=>({...x}));
+    anoixtoIst=-1;
+    await apothikefse();
+    minimaOk='Πήρα τις ρυθμίσεις από «'+h.titlos+'» — θέμα, χρώματα, τόπο, κατάλογο και μήνυμα. Οι απαντήσεις και η ημερομηνία δεν άλλαξαν.';
+    zografise('panw');
+  });
+  on('[data-epanafora]','click',async ev=>{
+    const i=+ev.currentTarget.dataset.epanafora, h=DB.istoriko[i];
+    if(!h||!h.ekdilosi) return;
+    pedia();
+    const trexon=fakelosEkdilosis();
+    const foto=DB.ekdilosi.fotoFonto||'';
+    DB.ekdilosi={...arxiko().ekdilosi, ...h.ekdilosi, fotoFonto:''};
+    DB.pota=(h.pota||DB.pota).map(x=>({...x}));
+    DB.fagita=(h.fagita||DB.fagita).map(x=>({...x}));
+    DB.apantiseis=(h.apantiseis||[]).map(a=>({...a}));
+    DB.ekdId='e'+Date.now()+Math.random().toString(36).slice(2,6);
+    EGO=null; p=katharoProxeiro();
+    DB.istoriko=[trexon,...DB.istoriko.filter((_,k)=>k!==i)].slice(0,12);
+    if(foto) DB.istoriko[0].fotoFonto=foto;
+    await apothikefse();
+    anoixtoIst=-1;
+    minimaOk='Γύρισες στην εκδήλωση «'+h.titlos+'». Η προηγούμενη μπήκε στη λίστα με τις απαντήσεις της.';
+    zografise('panw');
+  });
+  b('naiMiden',async()=>{
+    if(!katalava){ minimaOk='Τσέκαρε πρώτα το κουτάκι, για να είμαι σίγουρος ότι το θέλεις.'; zografise(); return; }
+    pedia();
+    const posa=DB.apantiseis.length;
+    if(posa){
+      DB.istoriko=[fakelosEkdilosis(),...(DB.istoriko||[])].slice(0,12);
+    }
+    if(meFyllo){ try{ await fylloPost({energeia:'katharismos'}); }catch(err){} }
+    DB.apantiseis=[];
+    DB.ekdId='e'+Date.now()+Math.random().toString(36).slice(2,6);
+    Object.assign(DB.ekdilosi,{titlos:'',topos:'',dieuthinsi:'',plat:null,mik:null,orofos:'',synantisi:'',
+      parking:'',minima:'',doraSimeiosi:'',doroTi:'',doroPoso:'',doroSynolo:'',fotoFonto:'',kleista:false});
+    await apothikefse();
+    EGO=null; p=katharoProxeiro(); await save(KEY_ME,null,false);
+    rotaMidenismo=false; katalava=false;
+    karteta='ekdilosi';
+    minimaEkd='🆕 Καινούργια εκδήλωση, άγραφο χαρτί. Οι '+posa+' απαντήσεις μπήκαν στο ιστορικό. Διάλεξε τίτλο, τόπο και ημερομηνία.';
+    minimaOk='';
+    zografise();
+  });
+  on('[data-fonto]','click',async e=>{
+    pedia(); DB.ekdilosi.fonto=e.currentTarget.dataset.fonto; DB.ekdilosi.fotoFonto='';
+    minimaFoto=''; await apothikefse(); zografise();
+  });
+  b('sviseFoto',async()=>{ pedia(); DB.ekdilosi.fotoFonto=''; minimaFoto='Η φωτογραφία αφαιρέθηκε.'; await apothikefse(); zografise(); });
+  const fpedio=el('e_foto');
+  if(fpedio) fpedio.addEventListener('change',ev=>{
+    const arxeio=ev.target.files&&ev.target.files[0]; if(!arxeio) return;
+    pedia(); minimaFoto='Ετοιμάζω τη φωτογραφία…'; zografise();
+    const fr=new FileReader();
+    fr.onload=()=>{
+      const img=new Image();
+      img.onload=async()=>{
+        const megMax=1400, kl=Math.min(1,megMax/Math.max(img.width,img.height));
+        const c=document.createElement('canvas');
+        c.width=Math.round(img.width*kl); c.height=Math.round(img.height*kl);
+        c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+        let data=c.toDataURL('image/jpeg',0.72);
+        if(data.length>2600000) data=c.toDataURL('image/jpeg',0.5);
+        DB.ekdilosi.fotoFonto=data; DB.ekdilosi.fonto='';
+        await apothikefse(); minimaFoto='Η φωτογραφία μπήκε στην πρόσκληση.'; zografise();
+      };
+      img.onerror=()=>{ minimaFoto='Δεν διάβασα την εικόνα. Δοκίμασε άλλη.'; zografise(); };
+      img.src=fr.result;
+    };
+    fr.onerror=()=>{ minimaFoto='Δεν άνοιξε το αρχείο.'; zografise(); };
+    fr.readAsDataURL(arxeio);
+  });
+
+  const rythm=el('e_entasi');
+  if(rythm){
+    rythm.addEventListener('input',()=>{
+      DB.ekdilosi.entasi=+rythm.value;
+      const et=document.querySelector('label[for="e_entasi"]');
+      if(et) et.textContent='Ένταση φόντου — '+rythm.value+'%';
+    });
+    rythm.addEventListener('change',async()=>{ DB.ekdilosi.entasi=+rythm.value; await apothikefse(); });
+  }
+  const pk=el('proepis');
+  if(pk){
+    pk.addEventListener('touchstart',ev=>{ ev.preventDefault(); anoixeProepis(); },{passive:false});
+    pk.addEventListener('mousedown',ev=>{ ev.preventDefault(); anoixeProepis(); });
+    pk.addEventListener('contextmenu',ev=>ev.preventDefault());
+  }
+  on('[data-minima]','click',async ev=>{
+    pedia();
+    const lista=MINYMATA[DB.ekdilosi.thema]||MINYMATA.parti;
+    const k=lista[+ev.currentTarget.dataset.minima];
+    DB.ekdilosi.minima = DB.ekdilosi.minima===k ? '' : k;
+    await apothikefse(); zografise();
+  });
+  on('[data-xroma]','click',async e=>{ pedia(); DB.ekdilosi.selidaXroma=e.currentTarget.dataset.xroma; await apothikefse(); zografise(); });
+  on('[data-plaisio]','click',async e=>{ pedia(); DB.ekdilosi.plaisio=e.currentTarget.dataset.plaisio; await apothikefse(); zografise(); });
+  on('[data-thema]','click',async e=>{ pedia(); DB.ekdilosi.thema=e.currentTarget.dataset.thema; await apothikefse(); zografise(); });
+  on('[data-dora]','click',async e=>{ pedia(); DB.ekdilosi.dora=e.currentTarget.dataset.dora; await apothikefse(); zografise(); });
+  b('kleidoma',async()=>{ pedia(); DB.ekdilosi.kleista=!DB.ekdilosi.kleista; await apothikefse();
+    minimaOk=DB.ekdilosi.kleista?'Οι δηλώσεις έκλεισαν.':'Οι δηλώσεις άνοιξαν ξανά.'; zografise(); });
+  async function diavaseXarti(keimeno){
+    pedia();
+    const k=(keimeno||'').trim();
+    if(!k){ minimaPin='Δεν βρήκα τίποτα. Αντίγραψε πρώτα τη διεύθυνση ή τον σύνδεσμο.'; zografise(); return; }
+    const st=vresSyntetagmenes(k);
+    if(st){
+      DB.ekdilosi.plat=st.plat; DB.ekdilosi.mik=st.mik;
+      await apothikefse();
+      minimaPin='Η πινέζα μπήκε: '+st.plat.toFixed(5)+', '+st.mik.toFixed(5)+'. Το κουμπί των οδηγιών οδηγεί πλέον εκεί.'
+        +(DB.ekdilosi.dieuthinsi?'':' Γράψε και τη διεύθυνση πιο πάνω για να τη διαβάζουν οι καλεσμένοι.');
+      zografise(); return;
+    }
+    if(/goo\.gl|maps\.app/i.test(k)){
+      minimaPin='Οι σύντομοι σύνδεσμοι δεν διαβάζονται. Άνοιξέ τον στον χάρτη, κράτα πατημένο το σημείο και αντίγραψε τους δύο αριθμούς.';
+      zografise(); return;
+    }
+    const kath=k.replace(/https?:\/\/\S+/g,'').replace(/\s+/g,' ').trim();
+    if(kath.length>3){
+      DB.ekdilosi.dieuthinsi=kath.slice(0,120); DB.ekdilosi.plat=null; DB.ekdilosi.mik=null;
+      await apothikefse();
+      minimaPin='Δεν είχε συντεταγμένες, οπότε το έβαλα σαν διεύθυνση. Οι καλεσμένοι θα οδηγηθούν εκεί κανονικά.';
+      zografise(); return;
+    }
+    minimaPin='Δεν κατάλαβα τι είναι αυτό. Δοκίμασε τη διεύθυνση ή δύο αριθμούς, π.χ. 35.33912, 25.13284.';
+    zografise();
+  }
+  b('valePineza',()=>diavaseXarti(el('e_pin').value));
+
+  b('pinezaEdo',()=>{ pedia();
+    if(!navigator.geolocation){ minimaPin='Η συσκευή δεν δίνει τοποθεσία. Επικόλλησε συντεταγμένες.'; zografise(); return; }
+    minimaPin='Ψάχνω πού είσαι… κράτα το ανοιχτό λίγα δευτερόλεπτα.'; zografise();
+    navigator.geolocation.getCurrentPosition(async pos=>{
+      DB.ekdilosi.plat=pos.coords.latitude; DB.ekdilosi.mik=pos.coords.longitude;
+      await apothikefse();
+      minimaPin='Η πινέζα μπήκε εκεί που στέκεσαι.'+(DB.ekdilosi.dieuthinsi?'':' Γράψε και τη διεύθυνση πιο πάνω.');
+      zografise();
+    },err=>{
+      minimaPin = err&&err.code===1 ? 'Δεν δόθηκε άδεια τοποθεσίας. Άνοιξε τις ρυθμίσεις του φυλλομετρητή ή επικόλλησε συντεταγμένες.'
+        : err&&err.code===3 ? 'Άργησε πολύ το σήμα. Δοκίμασε ξανά σε ανοιχτό χώρο ή επικόλλησε συντεταγμένες.'
+        : 'Δεν πήρα την τοποθεσία. Επικόλλησε συντεταγμένες.';
+      zografise();
+    },{enableHighAccuracy:true,timeout:15000,maximumAge:0}); });
+
+  b('svisePineza',async()=>{ pedia(); DB.ekdilosi.plat=null; DB.ekdilosi.mik=null; await apothikefse(); minimaPin='Η πινέζα σβήστηκε.'; zografise(); });
+
+  /* κατάλογος */
+  document.querySelectorAll('.item .i-monada').forEach(sel=>{
+    sel.addEventListener('change',()=>{
+      const r=sel.closest('.item'), on=r.querySelector('.i-onoma').value, om=r.dataset.omada;
+      const nea=protasiPosotitas(on,sel.value,om);
+      r.querySelector('.i-ana').value=arith(nea);
+      menouAllages=true;
+      const k=el('katastasiMenou');
+      if(k) k.textContent='⚠️ Άλλαξε η μονάδα, προσάρμοσα την ποσότητα σε '+arith(nea)+' ανά ενήλικα. Θέλει αποθήκευση.';
+    });
+  });
+  document.querySelectorAll('.item input,.item select,.i-prosf').forEach(x=>{
+    x.addEventListener('input',()=>{
+      menouAllages=true;
+      const k=el('katastasiMenou');
+      if(k) k.textContent='⚠️ Έχεις αλλαγές που δεν έχουν αποθηκευτεί. Οι καλεσμένοι βλέπουν ακόμη τον παλιό κατάλογο.';
+    });
+    x.addEventListener('change',()=>{
+      menouAllages=true;
+      const k=el('katastasiMenou');
+      if(k) k.textContent='⚠️ Έχεις αλλαγές που δεν έχουν αποθηκευτεί. Οι καλεσμένοι βλέπουν ακόμη τον παλιό κατάλογο.';
+    });
+  });
+  on('[data-prosthese]','click',e=>{ mazepseMenou(); menouAllages=true;
+    const om=e.currentTarget.dataset.prosthese;
+    DB[om].push({id:'x'+Date.now(),eik:'',onoma:'',monada:om==='pota'?'λίτρα':'μερίδες',
+      ana:om==='pota'?1:1,alk:false}); zografise(); });
+  on('[data-svise]','click',e=>{ mazepseMenou(); menouAllages=true;
+    const {svise,omada}=e.currentTarget.dataset; DB[omada]=DB[omada].filter(x=>x.id!==svise); zografise(); });
+  const apothikefseMenou=async()=>{
+    mazepseMenou(); anagnorisiAlkool();
+    DB.pota.concat(DB.fagita).forEach(x=>{ if(!x.ana) x.ana=protasiPosotitas(x.onoma,x.monada,DB.pota.includes(x)?'pota':'fagita'); });
+    let kena=0;
+    ['pota','fagita'].forEach(om=>{ const prin=DB[om].length;
+      DB[om]=DB[om].filter(x=>x.onoma);
+      DB[om].forEach(x=>{ if(!x.eik) x.eik=om==='pota'?'🥂':'🍽️'; });
+      kena+=prin-DB[om].length; });
+    await apothikefse();
+    menouAllages=false;
+    const orismena=[...DB.pota.filter(x=>x.prosf),...DB.fagita.filter(x=>x.prosf)];
+    minimaOk='✅ Ο κατάλογος πέρασε στην πρόσκληση.'
+      +(orismena.length?' Οι καλεσμένοι θα δουν: '+orismena.map(x=>x.onoma).join(', ')+'.':'')
+      +(kena?' Άφησα έξω '+kena+' γραμμή χωρίς όνομα.':'');
+    zografise('panw');
+  };
+  b('apothMenou',apothikefseMenou);
+  b('apothMenouPanw',apothikefseMenou);
+
+  b('ananeosi',async()=>{
+    const f=await fresko(); if(f&&f.apantiseis) DB.apantiseis=f.apantiseis;
+    const t=new Date().toLocaleTimeString('el-GR',{hour:'2-digit',minute:'2-digit'});
+    minimaOk='Ανανεώθηκε στις '+t+' — '+DB.apantiseis.length+' απαντήσεις.';
+    zografise();
+  });
+  b('exagogi',()=>katevase(DB.apantiseis,DB.ekdilosi.titlos));
+  b('antigrafi',async()=>{
+    const n=plithos(meIsos);
+    const ola=[...zitisi(DB.pota,'pota',meIsos),...zitisi(DB.fagita,'fagita',meIsos)].filter(x=>x.atoma>0);
+    const k='Λίστα αγορών — '+DB.ekdilosi.titlos+'\n'+n.enilikes+' ενήλικες, '+n.paidia+' παιδιά, '+n.vrefi+' βρέφη\n'
+      +ola.map(x=>{
+        const vasi=x.alk?x.en:x.en+x.pa*0.6, sym=symvouliAgoras(x,vasi*x.ana);
+        return '• '+x.onoma+': '+posotita(x)+(sym?' ('+sym+')':'');
+      }).join('\n');
+    try{ await navigator.clipboard.writeText(k); minimaOk='Η λίστα αντιγράφηκε.'; }
+    catch(err){ minimaOk='Δεν έγινε η αντιγραφή.'; }
+    zografise();
+  });
+}
+
+function mazepse(){
+  const g=id=>el(id);
+  if(g('onoma')) p.onoma=g('onoma').value;
+  if(g('en')) p.enilikes=Math.max(0,+g('en').value||0);
+  if(g('pa')) p.paidia=Math.max(0,+g('pa').value||0);
+  if(g('vr')) p.vrefi=Math.max(0,+g('vr').value||0);
+  const kouti=g('onomataL');
+  if(kouti) p.onomata=[...kouti.querySelectorAll('.onoma-k')].map(x=>x.value.trim()).filter(Boolean);
+  if(g('alergies')) p.alergies=g('alergies').value;
+  if(g('elef_pota')) p.elef_pota=g('elef_pota').value;
+  if(g('elef_fagita')) p.elef_fagita=g('elef_fagita').value;
+  document.querySelectorAll('.fers-ti').forEach(x=>{
+    const f=p.ferno.find(y=>y.kat===x.dataset.kat); if(f) f.ti=x.value;
+  });
+  if(g('theseis')){
+    const t=Math.max(0,+g('theseis').value||0);
+    p.theseis = p.leoforeio?Math.min(16,t) : p.vanaki?Math.min(9,t) : Math.min(5,t);
+    if(p.theseis<=4){ p.vanaki=false; p.leoforeio=false; }
+    else if(p.theseis<=8){ p.leoforeio=false; }
+  }
+  if(g('posoDorou')) p.posoDorou=g('posoDorou').value;
+  if(g('simeiosi')) p.simeiosi=g('simeiosi').value;
+}
+function mazepseMenou(){
+  document.querySelectorAll('.item').forEach(r=>{
+    const {omada,id}=r.dataset, it=DB[omada].find(x=>x.id===id); if(!it) return;
+    it.eik=r.querySelector('.i-eik').value.trim();
+    it.onoma=r.querySelector('.i-onoma').value.trim();
+    it.monada=r.querySelector('.i-monada').value;
+    it.ana=Math.max(0,parseFloat(String(r.querySelector('.i-ana').value).replace(',','.'))||0);
+  });
+  document.querySelectorAll('.i-prosf').forEach(c=>{
+    const it=DB[c.dataset.omada].find(x=>x.id===c.dataset.id); if(it) it.prosf=c.checked;
+  });
+}
+
+function katevase(lista,titlos){
+  const ap = lista||DB.apantiseis;
+  const on=(l,ids)=>(ids||[]).map(i=>{const t=l.concat(ADIAFORO).find(x=>x.id===i);return t?t.onoma:'';}).filter(Boolean).join(' | ');
+  const kef=['Όνομα','Απάντηση','Ενήλικες','Παιδιά','Βρέφη','Ονόματα','Ποτά','Φαγητά','Θα ήθελε να πιει','Θα ήθελε να φάει','Διατροφή','Αλλεργίες','Φέρνει','Δώρο','Μετακίνηση','Κενές θέσεις στο αυτοκίνητο','Σημείωση','Πότε'];
+  const gr=ap.map(a=>[
+    a.onoma, a.apantisi==='nai'?'Έρχεται':a.apantisi==='oxi'?'Δεν έρχεται':'Ίσως',
+    a.enilikes,a.paidia,a.vrefi,(a.onomata||[]).join(' | '),
+    on(DB.pota,a.pota), on(DB.fagita,a.fagita), a.elef_pota||'', a.elef_fagita||'', on(DIATROFI,a.diatrofi), a.alergies||'',
+    keimenoFernei(a),
+    a.doro==='koino'?'Κοινό δώρο':a.doro==='atomiko'?'Δικό του δώρο':a.doro==='kanena'?'Θα το σκεφτεί':'',
+    (METAKINISI.find(m=>m.id===a.metakinisi)||{}).onoma||'', a.theseis||0,
+    a.simeiosi||'', new Date(a.pote).toLocaleString('el-GR')]);
+  const seires=[kef,...gr];
+  const kena=Array(kef.length).fill('');
+  const grammiS=(a,b)=>{const r=kena.slice(); r[0]=a; r[1]=b; return r;};
+  const naiA=ap.filter(a=>a.apantisi==='nai');
+  const plS=naiA.reduce((x,a)=>({e:x.e+(a.enilikes||0),p:x.p+(a.paidia||0),v:x.v+(a.vrefi||0)}),{e:0,p:0,v:0});
+  seires.push(kena.slice(), grammiS('ΣΥΝΟΛΑ',''),
+    grammiS('Ενήλικες',plS.e), grammiS('Παιδιά',plS.p), grammiS('Βρέφη',plS.v),
+    grammiS('Σύνολο ατόμων',plS.e+plS.p+plS.v),
+    grammiS('Είπαν ίσως',ap.filter(a=>a.apantisi==='isos').length),
+    grammiS('Είπαν όχι',ap.filter(a=>a.apantisi==='oxi').length));
+  const anaEidos=(lista,klidi,titlos)=>{
+    seires.push(kena.slice(), grammiS(titlos,'Άτομα'));
+    lista.forEach(it=>{
+      const poioi=naiA.filter(a=>(a[klidi]||[]).includes(it.id));
+      if(!poioi.length) return;
+      const atoma=poioi.reduce((x,a)=>x+(a.enilikes||0)+(a.paidia||0),0);
+      const r=kena.slice(); r[0]=it.onoma; r[1]=atoma; r[2]=poioi.map(x=>x.onoma).join(' | ');
+      seires.push(r);
+    });
+  };
+  anaEidos(DB.pota.concat(ADIAFORO[0]),'pota','ΠΟΤΑ');
+  anaEidos(DB.fagita.concat(ADIAFORO[1]),'fagita','ΦΑΓΗΤΑ');
+  anaEidos(DIATROFI,'diatrofi','ΕΙΔΙΚΕΣ ΜΕΡΙΔΕΣ');
+  const k='\ufeff'+seires.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(';')).join('\r\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([k],{type:'text/csv;charset=utf-8'}));
+  a.download=(titlos||'apantiseis').replace(/[^\wΑ-Ωα-ωά-ώΆ-Ώ]+/g,'_').slice(0,40)+'.csv';
+  a.click(); URL.revokeObjectURL(a.href);
+}
+</script>
+</body>
+</html>
