@@ -21,14 +21,21 @@ function vresFyllo_(onoma) {
   return f;
 }
 
-function apantisi_(antikeimeno) {
+function apantisi_(antikeimeno, klisi) {
+  var keimeno = JSON.stringify(antikeimeno);
+  if (klisi) {
+    return ContentService
+      .createTextOutput(klisi + '(' + keimeno + ')')
+      .setMimeType(ContentService.MimeType.JAVASCRIPT);
+  }
   return ContentService
-    .createTextOutput(JSON.stringify(antikeimeno))
+    .createTextOutput(keimeno)
     .setMimeType(ContentService.MimeType.JSON);
 }
 
 /* ---------- Ανάγνωση ---------- */
 function doGet(e) {
+  var klisi = (e && e.parameter && e.parameter.callback) ? e.parameter.callback : '';
   try {
     var fEkd = vresFyllo_(FYLLO_EKD);
     var kelí = fEkd.getRange('A1').getValue();
@@ -61,9 +68,9 @@ function doGet(e) {
       istoriko:  vasi.istoriko  || [],
       ekdId:     vasi.ekdId     || '',
       apantiseis: apantiseis
-    });
+    }, klisi);
   } catch (err) {
-    return apantisi_({ sfalma: String(err) });
+    return apantisi_({ sfalma: String(err) }, klisi);
   }
 }
 

@@ -170,15 +170,39 @@ const DIEF = String(DIEFTHINSI_FYLLOU||'').trim().replace(/^['"]|['"]$/g,'');
 const meFyllo = /^https?:\/\//i.test(DIEF) && /script\.google\.com|\/exec/i.test(DIEF);
 let katastasiSyndesis = meFyllo?'syndeetai':'topika';
 
+let teleftaioSfalma='';
+function fylloJsonp(){
+  return new Promise((resolve,reject)=>{
+    const onoma='cb'+Date.now()+Math.floor(Math.random()*1000);
+    const et=document.createElement('script');
+    const xrono=setTimeout(()=>{ katharise(); reject(new Error('δεν απάντησε σε 15 δευτερόλεπτα')); },15000);
+    function katharise(){ clearTimeout(xrono); try{ delete window[onoma]; }catch(e){} if(et.parentNode) et.parentNode.removeChild(et); }
+    window[onoma]=d=>{ katharise(); resolve(d); };
+    et.onerror=()=>{ katharise(); reject(new Error('δεν φορτώθηκε το σενάριο')); };
+    et.src=DIEF+'?energeia=ola&callback='+onoma+'&t='+Date.now();
+    document.body.appendChild(et);
+  });
+}
 async function fylloGet(){
-  const r=await fetch(DIEF+'?energeia=ola&t='+Date.now());
-  if(!r.ok) throw new Error('σφάλμα '+r.status);
-  return r.json();
+  try{
+    const r=await fetch(DIEF+'?energeia=ola&t='+Date.now());
+    if(!r.ok) throw new Error('απάντηση '+r.status);
+    return await r.json();
+  }catch(err){
+    teleftaioSfalma=String(err&&err.message||err);
+    return await fylloJsonp();
+  }
 }
 async function fylloPost(antikeimeno){
-  const r=await fetch(DIEF,{method:'POST',body:JSON.stringify(antikeimeno)});
-  if(!r.ok) throw new Error('σφάλμα '+r.status);
-  return r.json();
+  try{
+    const r=await fetch(DIEF,{method:'POST',body:JSON.stringify(antikeimeno)});
+    if(!r.ok) throw new Error('απάντηση '+r.status);
+    return await r.json();
+  }catch(err){
+    teleftaioSfalma=String(err&&err.message||err);
+    await fetch(DIEF,{method:'POST',mode:'no-cors',body:JSON.stringify(antikeimeno)});
+    return {ok:true, tyflo:true};
+  }
 }
 const cloud = typeof window.storage!=='undefined' && window.storage;
 async function load(key,koini){
@@ -1188,7 +1212,8 @@ function kartaEkdilosis(){
     <div class="note" style="margin-top:0;border-left:4px solid ${katastasiSyndesis==='syndedemeno'?'var(--green)':katastasiSyndesis==='topika'?'var(--gold)':'var(--red)'};padding-left:12px">
       ${katastasiSyndesis==='syndedemeno'?'🟢 Συνδεδεμένο με το φύλλο σου — οι απαντήσεις μαζεύονται εκεί.'
         :katastasiSyndesis==='topika'?('🟡 Δεν βρήκα διεύθυνση σεναρίου μέσα στο αρχείο. '+(DIEF?('Βρήκα αυτό, που δεν μοιάζει σωστό: '+esc(DIEF.slice(0,60))):'Η γραμμή είναι κενή — μάλλον ανέβηκε το αρχείο χωρίς την αλλαγή.'))
-        :'🔴 Η διεύθυνση υπάρχει αλλά το φύλλο δεν απαντά. Έλεγξε ότι η ανάπτυξη έχει πρόσβαση «Οποιοσδήποτε».'}
+        :'🔴 Η διεύθυνση υπάρχει αλλά το φύλλο δεν απαντά.'+(teleftaioSfalma?' Λεπτομέρεια: '+esc(teleftaioSfalma):'')}
+      <button class="btn ghost mini" id="dokimiSyndesis" style="width:100%;margin-top:10px">🔄 Δοκίμασε ξανά τη σύνδεση</button>
       ${DIEF?`<div style="font-size:12px;margin-top:6px;word-break:break-all;opacity:.8">Διεύθυνση στο αρχείο: ${esc(DIEF)}</div>`:''}</div>
     <h3>Στείλε την πρόσκληση</h3>
     <p><small>Ο ίδιος σύνδεσμος ανοίγει σε κάθε κινητό, χωρίς εγκατάσταση.</small></p>
@@ -1716,6 +1741,21 @@ function syndese(){
       minimaApost='Η εφαρμογή δεν άνοιξε από εδώ, αλλά η πρόσκληση αντιγράφηκε. Άνοιξέ την μόνος σου και κάνε επικόλληση.';
       zografise();
     }
+  });
+  b('dokimiSyndesis',async()=>{
+    katastasiSyndesis='syndeetai'; minimaEkd='Δοκιμάζω…'; zografise();
+    try{
+      const apo=await fylloGet();
+      if(apo && apo.apantiseis) DB.apantiseis=apo.apantiseis;
+      if(apo && apo.ekdilosi) DB.ekdilosi=Object.assign(DB.ekdilosi,apo.ekdilosi);
+      katastasiSyndesis='syndedemeno';
+      minimaEkd='✅ Η σύνδεση πέτυχε. Βρήκα '+((apo&&apo.apantiseis)||[]).length+' απαντήσεις.';
+    }catch(err){
+      katastasiSyndesis='xoris';
+      teleftaioSfalma=String(err&&err.message||err);
+      minimaEkd='❌ Απέτυχε: '+teleftaioSfalma;
+    }
+    zografise();
   });
   b('anoixeQr',()=>{ pedia(); anoixtoQr=true; zografise(); });
   b('kleiseQr',()=>{ anoixtoQr=false; zografise(); });
