@@ -166,16 +166,17 @@ const DIEFTHINSI_FYLLOU = '';
 
 /* ================= Αποθήκευση ================= */
 const KEY_ALL='ekdilosi_koini_v2', KEY_ME='ekdilosi_dikos_mou_v2';
-const meFyllo = /^https:\/\/script\.google\.com\//.test(DIEFTHINSI_FYLLOU);
+const DIEF = String(DIEFTHINSI_FYLLOU||'').trim().replace(/^['"]|['"]$/g,'');
+const meFyllo = /^https?:\/\//i.test(DIEF) && /script\.google\.com|\/exec/i.test(DIEF);
 let katastasiSyndesis = meFyllo?'syndeetai':'topika';
 
 async function fylloGet(){
-  const r=await fetch(DIEFTHINSI_FYLLOU+'?energeia=ola&t='+Date.now());
+  const r=await fetch(DIEF+'?energeia=ola&t='+Date.now());
   if(!r.ok) throw new Error('σφάλμα '+r.status);
   return r.json();
 }
 async function fylloPost(antikeimeno){
-  const r=await fetch(DIEFTHINSI_FYLLOU,{method:'POST',body:JSON.stringify(antikeimeno)});
+  const r=await fetch(DIEF,{method:'POST',body:JSON.stringify(antikeimeno)});
   if(!r.ok) throw new Error('σφάλμα '+r.status);
   return r.json();
 }
@@ -1186,8 +1187,9 @@ function kartaEkdilosis(){
   return `<div class="card">
     <div class="note" style="margin-top:0;border-left:4px solid ${katastasiSyndesis==='syndedemeno'?'var(--green)':katastasiSyndesis==='topika'?'var(--gold)':'var(--red)'};padding-left:12px">
       ${katastasiSyndesis==='syndedemeno'?'🟢 Συνδεδεμένο με το φύλλο σου — οι απαντήσεις μαζεύονται εκεί.'
-        :katastasiSyndesis==='topika'?'🟡 Δεν έχει οριστεί φύλλο. Οι απαντήσεις μένουν μόνο σε αυτή τη συσκευή. Άνοιξε το αρχείο και συμπλήρωσε τη διεύθυνση του σεναρίου.'
-        :'🔴 Το φύλλο δεν απαντά. Έλεγξε τη διεύθυνση και τα δικαιώματα του σεναρίου.'}</div>
+        :katastasiSyndesis==='topika'?('🟡 Δεν βρήκα διεύθυνση σεναρίου μέσα στο αρχείο. '+(DIEF?('Βρήκα αυτό, που δεν μοιάζει σωστό: '+esc(DIEF.slice(0,60))):'Η γραμμή είναι κενή — μάλλον ανέβηκε το αρχείο χωρίς την αλλαγή.'))
+        :'🔴 Η διεύθυνση υπάρχει αλλά το φύλλο δεν απαντά. Έλεγξε ότι η ανάπτυξη έχει πρόσβαση «Οποιοσδήποτε».'}
+      ${DIEF?`<div style="font-size:12px;margin-top:6px;word-break:break-all;opacity:.8">Διεύθυνση στο αρχείο: ${esc(DIEF)}</div>`:''}</div>
     <h3>Στείλε την πρόσκληση</h3>
     <p><small>Ο ίδιος σύνδεσμος ανοίγει σε κάθε κινητό, χωρίς εγκατάσταση.</small></p>
     <button class="btn" id="anoixeApost">📤 Στείλε την πρόσκληση</button>
