@@ -4,6 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Πρόσκληση & Οργάνωση Εκδήλωσης</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0E4F49">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Πρόσκληση">
+<meta property="og:title" content="Πρόσκληση">
+<meta property="og:description" content="Πες μας αν θα έρθεις — δύο λεπτά μόνο.">
+<meta property="og:image" content="icon-512.png">
 <style>
 :root{
   --bg:#EEF2F1;
@@ -1223,16 +1233,6 @@ function othoniDiaxeirisis(){
 function kartaEmfanisis(){
   const e=DB.ekdilosi;
   return `  <div class="card">
-    <h3>Τι οργανώνεις</h3>
-    <p><small>Αλλάζει τα χρώματα και το ύφος της πρόσκλησης.</small></p>
-    <div class="chips">${THEMATA.map(t=>`<button class="chip" data-thema="${t.id}" aria-pressed="${e.thema===t.id}">${t.eik} ${esc(t.onoma)}</button>`).join('')}</div>
-    ${e.thema==='allo'?`<div class="opt-extra" style="margin-top:10px">
-      <label for="e_alloOn">Πώς το λες;</label>
-      <input type="text" id="e_alloOn" value="${esc(e.alloOnoma)}" placeholder="π.χ. Αποκριάτικο γλέντι">
-      <label for="e_alloEik">Εικονίδιο</label>
-      <input type="text" id="e_alloEik" value="${esc(e.alloEik)}" maxlength="2" placeholder="🎭"></div>`:''}
-  </div>
-  <div class="card">
     <h3>Φόντο πρόσκλησης</h3>
     <div class="chips">${FONTA.map(f=>`<button class="chip" data-fonto="${f.id}" aria-pressed="${!e.fotoFonto&&e.fonto===f.id}">${esc(f.onoma)}</button>`).join('')}</div>
     <label for="e_foto">Δική σου φωτογραφία</label>
@@ -1260,6 +1260,7 @@ function kartaEkdilosis(){
         :'🔴 Η διεύθυνση υπάρχει αλλά το φύλλο δεν απαντά.'+(teleftaioSfalma?' Λεπτομέρεια: '+esc(teleftaioSfalma):'')}
       <button class="btn ghost mini" id="dokimiSyndesis" style="width:100%;margin-top:10px">🔄 Δοκίμασε ξανά τη σύνδεση</button>
       <button class="btn ghost mini" id="anoixeOmo" style="width:100%;margin-top:8px">🔎 Άνοιξε τη διεύθυνση σε νέα καρτέλα</button>
+      <button class="btn ghost mini" id="dokimiGrapsimatos" style="width:100%;margin-top:8px">✍️ Δοκιμή γραψίματος στο φύλλο</button>
       ${DIEF?`<div style="font-size:12px;margin-top:6px;word-break:break-all;opacity:.8">Διεύθυνση στο αρχείο: ${esc(DIEF)}</div>`:''}</div>
     <h3>Στείλε την πρόσκληση</h3>
     <p><small>Ο ίδιος σύνδεσμος ανοίγει σε κάθε κινητό, χωρίς εγκατάσταση.</small></p>
@@ -1319,6 +1320,14 @@ function kartaEkdilosis(){
       <input type="text" id="e_diorg" value="${esc(e.diorganotis||'')}" placeholder="Ανδρέας" style="flex:1">
     </div>
     <div class="note">Θα γράφει: «${esc(fraseiDiorganoti()||'Σε προσκαλεί ο Ανδρέας')}»</div>
+    <label for="e_thema">Τι οργανώνεις</label>
+    <select id="e_thema">${THEMATA.map(t=>`<option value="${t.id}" ${e.thema===t.id?'selected':''}>${t.eik} ${esc(t.onoma)}</option>`).join('')}</select>
+    ${e.thema==='allo'?`<div class="opt-extra" style="margin-top:10px">
+      <label for="e_alloOn">Πώς το λες;</label>
+      <input type="text" id="e_alloOn" value="${esc(e.alloOnoma)}" placeholder="π.χ. Αποκριάτικο γλέντι">
+      <label for="e_alloEik">Εικονίδιο</label>
+      <input type="text" id="e_alloEik" value="${esc(e.alloEik)}" maxlength="2" placeholder="🎭"></div>`:''}
+    <div class="note">Αλλάζει χρώματα, έτοιμους τίτλους και προτεινόμενα μηνύματα.</div>
     ${pedioEpilogis('e_titlos','Τίτλος',e.titlos,TITLOI[e.thema]||TITLOI.trapezi,'Γράψε τον δικό σου τίτλο')}
     ${pedioEpilogis('e_topos','Τόπος',e.topos,TOPOI,'Γράψε τον δικό σου τόπο')}
     <label for="e_dief">Διεύθυνση</label><input type="text" id="e_dief" value="${esc(e.dieuthinsi)}" placeholder="Οδός, αριθμός, περιοχή">
@@ -1760,6 +1769,10 @@ function syndese(){
     x.addEventListener('input',drasi); x.addEventListener('change',drasi);
   });
 
+  const pedThema=el('e_thema');
+  if(pedThema) pedThema.addEventListener('change',async()=>{
+    pedia(); DB.ekdilosi.thema=pedThema.value; await apothikefse(); zografise();
+  });
   ['e_titlos','e_topos','e_park'].forEach(id=>{
     const sel=el(id+'_ep'), ped=el(id);
     if(!sel||!ped) return;
@@ -1787,6 +1800,20 @@ function syndese(){
       minimaApost='Η εφαρμογή δεν άνοιξε από εδώ, αλλά η πρόσκληση αντιγράφηκε. Άνοιξέ την μόνος σου και κάνε επικόλληση.';
       zografise();
     }
+  });
+  b('dokimiGrapsimatos',async()=>{
+    const dok={id:'dok'+Date.now(), onoma:'ΔΟΚΙΜΗ '+new Date().toLocaleTimeString('el-GR'),
+      apantisi:'nai', enilikes:1, paidia:0, vrefi:0, onomata:[], pota:[], fagita:[],
+      elef_pota:'', elef_fagita:'', diatrofi:[], alergies:'', ferno:[], doro:'', posoDorou:'',
+      metakinisi:'', theseis:0, simeiosi:'δοκιμαστική εγγραφή', pote:Date.now()};
+    minimaEkd='Γράφω…'; zografise();
+    try{
+      const r=await fylloPost({energeia:'apantisi', dedomena:dok});
+      minimaEkd = r&&r.tyflo
+        ? '📤 Στάλθηκε χωρίς επιβεβαίωση. Άνοιξε το φύλλο και δες αν μπήκε γραμμή «ΔΟΚΙΜΗ».'
+        : '✅ Γράφτηκε στο φύλλο. Άνοιξέ το να δεις τη γραμμή «ΔΟΚΙΜΗ».';
+    }catch(err){ minimaEkd='❌ Δεν γράφτηκε: '+String(err&&err.message||err); }
+    zografise();
   });
   b('anoixeOmo',()=>{ window.open(DIEF+'?energeia=ola','_blank'); });
   b('dokimiSyndesis',async()=>{
